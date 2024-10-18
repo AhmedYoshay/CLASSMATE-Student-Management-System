@@ -30,7 +30,6 @@ CREATE TABLE "Section" (
     "YearSection" varchar(15) PRIMARY KEY,
     "course_id" int,
     "teacher_id" int,
-    "classroom" varchar(50),
     "capacity" int CHECK ("capacity" <= 60),
     FOREIGN KEY ("course_id") REFERENCES "Course"("course_id"),
     FOREIGN KEY ("teacher_id") REFERENCES "Teacher"("teacher_id")

@@ -46,7 +46,6 @@ CREATE TABLE "Section" (
     "YearSection" VARCHAR(15) PRIMARY KEY,
     "course_id" INT,
     "teacher_id" INT,
-    "classroom" VARCHAR(50),
     "capacity" INT CHECK ("capacity" <= 60),
     FOREIGN KEY ("course_id") REFERENCES "Course"("course_id"),
     FOREIGN KEY ("teacher_id") REFERENCES "Teacher"("teacher_id")
