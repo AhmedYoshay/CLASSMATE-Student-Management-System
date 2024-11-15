@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ClassMate{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <h3>Navigation</h3>
+            <nav>
+                <ul>    
+                    <li><a href="#">Attendance</a></li> 
+                    <li><a href="#">Marks</a></li>
+                    <li><a href="#">Library</a></li>
+                    <li><a href="#">Courses</a></li>
+                    <li><a href="#">Transcript</a></li>
+                    <li><a href="#">Classroom</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content Section -->
+        <main class="main-content" id="main-content">
+            <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle Sidebar">☰</button>
+            
+            <!-- Logout Button if User is Logged In -->
+            {% if user.is_authenticated %}
+                <div class="logout-container">
+                    <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+                </div>
+            {% endif %}
+            
+            <div class="content-wrapper">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <script src="{% static 'base.js' %}"></script>
+</body>
+</html>

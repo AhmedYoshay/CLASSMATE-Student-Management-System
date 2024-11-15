@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ClassMate</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'user_auth/login.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <h2>ClassMate</h2>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="login-form-group">
+                <label for="login-username">Username</label>
+                <input type="text" id="login-username" name="username" required>
+            </div>
+            <div class="login-form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" name="password" required>
+            </div>
+            <div class="login-form-group">
+                <label for="login-captcha">Captcha</label>
+                {{ form.captcha }} 
+            </div>
+            <div class="login-form-group">
+                <button type="submit" id="login-button">Login</button>
+            </div>
+            {% if messages %}
+                <div class="error-messages visible">
+                    {% for message in messages %}
+                        <p class="error">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </form>
+    </div>
+
+    <script src="{% static 'user_auth/login.js' %}"></script>
+</body>
+</html>
