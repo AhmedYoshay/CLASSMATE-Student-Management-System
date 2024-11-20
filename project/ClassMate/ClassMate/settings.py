@@ -40,10 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_recaptcha',
     'captcha',
-    
+    #mine from here on
     'user',
     'user_auth',
+    'course',
+    'library',
     'temp',
+    
     
 ]
 
@@ -140,7 +143,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'user.CustomUser'
-LOGIN_URL = '/login/'
+LOGIN_URL = '/'
+
 
 #captcha settings
 RECAPTCHA_PUBLIC_KEY = '6LfecYAqAAAAAIXHZlwkDvAeQsJRbEya9Y4WXmqV'

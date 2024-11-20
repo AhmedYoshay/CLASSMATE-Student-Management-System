@@ -6,6 +6,10 @@
     <title>{% block title %}ClassMate{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+    
+    {% block extra_css %}
+    <!-- Page-specific CSS -->
+    {% endblock %}
 </head>
 <body>
     <div class="layout">
@@ -16,8 +20,8 @@
                 <ul>    
                     <li><a href="#">Attendance</a></li> 
                     <li><a href="#">Marks</a></li>
-                    <li><a href="#">Library</a></li>
-                    <li><a href="#">Courses</a></li>
+                    <li><a href="{% url 'library-books' %}">Library</a></li>
+                    <li><a href="{% url 'course_list' %}">Courses</a></li>
                     <li><a href="#">Transcript</a></li>
                     <li><a href="#">Classroom</a></li>
                 </ul>
@@ -28,7 +32,7 @@
         <main class="main-content" id="main-content">
             <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle Sidebar">☰</button>
             
-            <!-- Logout Button if User is Logged In -->
+            <!-- Logout Button -->
             {% if user.is_authenticated %}
                 <div class="logout-container">
                     <a href="{% url 'logout' %}" class="logout-button">Logout</a>
@@ -43,5 +47,9 @@
     </div>
 
     <script src="{% static 'base.js' %}"></script>
+    
+    {% block extra_js %}
+    <!-- Page-specific JS -->
+    {% endblock %}
 </body>
 </html>

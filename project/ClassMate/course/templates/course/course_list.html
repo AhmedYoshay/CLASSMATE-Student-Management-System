@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Courses{% endblock %}
+
+{% block content %}
+<div class="course-list-container">
+    <h1>Available Courses</h1>
+    <div class="course-grid">
+        {% for course in courses %}
+            <div class="course-card" data-course-code="{{ course.course_code }}">
+                <h2>{{ course.course_name }}</h2>
+                <p class="course-code">{{ course.course_code }}</p>
+                <p class="course-credits">Credits: {{ course.credits|default:"N/A" }}</p>
+                <p class="course-semester">Recommended Semester: {{ course.recommended_semester|default:"N/A" }}</p>
+                <button class="show-description-btn">Show Description</button>
+                <p class="course-description" style="display: none;">{{ course.description|default:"No description available." }}</p>
+
+                {% if course.main_course.exists %}
+                    <div class="course-prerequisites">
+                        <strong>Prerequisites:</strong>
+                        <ul>
+                            {% for prerequisite in course.main_course.all %}
+                                <li>{{ prerequisite.prerequisite.course_name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No courses available at the moment.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'course/course_list.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'course/course_list.js' %}"></script>
+{% endblock %}

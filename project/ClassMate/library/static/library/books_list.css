@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 20px; 
+    margin-bottom: 20px; 
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.books-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.books-table th, .books-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.books-table th {
+    background-color: #007BFF;
+    color: white;
+}
+
+.books-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.books-table td {
+    color: #555;
+}
+
+/* Empty message */
+.books-table td[colspan="4"] {
+    text-align: center;
+    color: #888;
+}
+
+@media (max-width: 768px) {
+    .books-table th, .books-table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 8px;
+    }
+}

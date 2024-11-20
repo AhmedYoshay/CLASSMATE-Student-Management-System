@@ -21,8 +21,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('user_auth.urls')),  
+    path('', include('user_auth.urls')),
+    path('library/', include('library.urls')),  
     path('temp/', include('temp.urls')),  
     path('captcha/', include('captcha.urls')),
+    path('course/', include('course.urls')),
     
 ]+ static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])

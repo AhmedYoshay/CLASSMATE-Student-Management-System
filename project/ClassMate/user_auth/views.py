@@ -19,7 +19,8 @@ def login_view(request):
             
             if user is not None:
                 login(request, user)
-                return HttpResponse("User is logged in")
+                return redirect('index1') 
+                # return HttpResponse("User is logged in")
             else:
                 messages.error(request, 'Invalid username or password')
         else:
@@ -31,4 +32,4 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('') 
+    return redirect('login') 

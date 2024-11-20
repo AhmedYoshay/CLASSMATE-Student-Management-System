@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Library Books{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Library Books</h1>
+        <input type="text" id="search" class="search-input" placeholder="Search for books..." />
+
+        <table class="books-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Available Copies</th>
+                </tr>
+            </thead>
+            <tbody id="booksTableBody">
+                {% for book in books %}
+                <tr>
+                    <td data-label="Title">{{ book.title }}</td>
+                    <td data-label="Author">{{ book.author }}</td>
+                    <td data-label="Available Copies">{{ book.available_copies }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No books available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'library/books_list.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'library/books_list.js' %}"></script>
+{% endblock %}
