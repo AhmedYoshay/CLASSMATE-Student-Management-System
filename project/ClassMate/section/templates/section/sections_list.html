@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Course Registration{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'section/sections_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Course Registration</h1>
+    
+    <div class="search-container">
+        <input type="text" id="courseSearch" placeholder="Search courses...">
+    </div>
+
+    <div id="messagesContainer">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">
+                    <span class="alert-icon">
+                        {% if 'success' in message.tags %}
+                            &#x2714;
+                        {% elif 'error' in message.tags %}
+                            &#x26A0;
+                        {% elif 'info' in message.tags %}
+                            &#x2139;
+                        {% endif %}
+                    </span>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <table class="sections-table">
+        <thead>
+            <tr>
+                <th>Section</th>
+                <th>Course</th>
+                <th>Teacher</th>
+                <th>Capacity</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="sectionsTableBody">
+            {% for section in sections %}
+            <tr>
+                <td data-label="Section">
+                    <strong>{{ section.section_label }}</strong>
+                    <br>
+                    <small>{{ section.course.course_name }}</small>
+                </td>
+                <td data-label="Course">{{ section.course.description }}</td>
+                <td data-label="Teacher">
+                    {{ section.teacher.user.first_name }} {{ section.teacher.user.last_name }}
+                    <br>
+                    <small>{{ section.teacher.program }}</small>
+                </td>
+                <td data-label="Capacity">
+                    {{ section.available_seats }} / {{ section.capacity }}
+                </td>
+                <td data-label="Action">
+                    <div class="tooltip">
+                        <form method="post" action="{% url 'enroll_section' section.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="enroll-btn" 
+                                    {% if not section.can_enroll %}disabled{% endif %}>
+                                Enroll
+                            </button>
+                        </form>
+                        {% if not section.can_enroll %}
+                            <span class="tooltiptext">
+                                {% if section.available_seats <= 0 %}
+                                    No available seats
+                                {% endif %}
+                                {% if section.missing_prereqs %}
+                                    Missing Prerequisites: {{ section.missing_prereqs|join:", " }}
+                                {% endif %}
+                                {% if section.would_exceed_credits %}
+                                    Would exceed 18 credit hours (Current: {{ section.current_credits }})
+                                {% endif %}
+                            </span>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No sections available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'section/sections_list.js' %}"></script>
+{% endblock %}
+

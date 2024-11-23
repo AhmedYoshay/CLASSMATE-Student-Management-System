@@ -15,13 +15,17 @@
     <div class="layout">
         <!-- Sidebar Navigation -->
         <aside class="sidebar" id="sidebar">
-            <h3>Navigation</h3>
+            <div class="sidebar-header">
+                <h3>Navigation</h3>
+                <!-- <button id="closeSidebar" class="close-sidebar" aria-label="Close Sidebar">&times;</button> -->
+            </div>
             <nav>
                 <ul>    
                     <li><a href="#">Attendance</a></li> 
                     <li><a href="#">Marks</a></li>
                     <li><a href="{% url 'library-books' %}">Library</a></li>
                     <li><a href="{% url 'course_list' %}">Courses</a></li>
+                    <li><a href="{% url 'sections_list' %}">Course Registration</a></li>
                     <li><a href="#">Transcript</a></li>
                     <li><a href="#">Classroom</a></li>
                 </ul>
@@ -30,14 +34,16 @@
         
         <!-- Main Content Section -->
         <main class="main-content" id="main-content">
-            <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle Sidebar">☰</button>
-            
-            <!-- Logout Button -->
-            {% if user.is_authenticated %}
-                <div class="logout-container">
-                    <a href="{% url 'logout' %}" class="logout-button">Logout</a>
-                </div>
-            {% endif %}
+            <div class="top-bar">
+                <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle Sidebar">☰</button>
+                
+                <!-- Logout Button -->
+                {% if user.is_authenticated %}
+                    <div class="logout-container">
+                        <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+                    </div>
+                {% endif %}
+            </div>
             
             <div class="content-wrapper">
                 {% block content %}
@@ -53,3 +59,4 @@
     {% endblock %}
 </body>
 </html>
+

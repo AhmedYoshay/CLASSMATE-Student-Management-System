@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'course',
     'library',
     'temp',
+    'section',
     
     
 ]
