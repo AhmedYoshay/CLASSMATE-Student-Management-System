@@ -31,14 +31,14 @@
         {% if attendance_records %}
         <table class="attendance-table">
             <thead>
-                <tr>
+                <tr class="status-{{ record.get_status_display|lower }}">
                     <th>Date</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 {% for record in attendance_records %}
-                <tr>
+                <tr class="status-{{ record.get_status_display|lower }}">
                     <td>{{ record.date }}</td>
                     <td>{{ record.get_status_display }}</td>
                 </tr>

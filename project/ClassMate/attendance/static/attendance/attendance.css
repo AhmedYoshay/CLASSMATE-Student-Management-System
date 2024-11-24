@@ -104,3 +104,15 @@
         gap: 10px;
     }
 }
+
+.attendance-table tr.status-present {
+    background-color: #d4edda; 
+}
+.attendance-table tr.status-absent {
+    background-color: #f8d7da; 
+}
+.attendance-table tr.status-late {
+    background-color: #e6d9cc ; 
+    /* funny thing since 3 late make one absent, mene late ka colour 
+    strategically choose kia he, this hex is exactly 1/3 away from green towards red */
+}
