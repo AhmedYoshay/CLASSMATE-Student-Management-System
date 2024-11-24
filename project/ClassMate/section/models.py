@@ -14,7 +14,7 @@ class Section(models.Model):
         verbose_name_plural = "Sections"
 
     def __str__(self):
-        return f"{self.course.name} - Section {self.section_label}" 
+        return f"{self.course.course_name} - Section {self.section_label}" 
 
 class Enrollment(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)

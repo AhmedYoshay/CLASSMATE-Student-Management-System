@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'attendance/attendance.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="attendance-navbar">
+    {% for section in sections %}
+    <a href="{% url 'show_attendance' section.id %}" 
+       class="{% if current_section and section.id == current_section.id %}active{% endif %}">
+        {{ section.course.course_code }}
+    </a>
+    {% endfor %}
+</div>
+
+{% block section_content %}
+<div class="attendance-container">
+    <div class="attendance-details">
+        <div class="attendance-header">
+            <h2>{{ current_section.course.course_code }} {{ current_section.course.course_name }}</h2>
+            <div class="attendance-percentage">
+                <span>Attendance Percentage:</span>
+                <span class="percentage-value {% if percentage < 80 %}percentage-danger{% else %}percentage-safe{% endif %}">
+                    {{ percentage|floatformat:2 }}%
+                </span>
+            </div>
+        </div>
+
+        {% if attendance_records %}
+        <table class="attendance-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in attendance_records %}
+                <tr>
+                    <td>{{ record.date }}</td>
+                    <td>{{ record.get_status_display }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No attendance records found for this section.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+{% endblock %}
+

@@ -27,5 +27,6 @@ urlpatterns = [
     path('captcha/', include('captcha.urls')),
     path('course/', include('course.urls')),
     path('section/', include('section.urls')),
+    path('attendance/', include('attendance.urls')),
     
 ]+ static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])

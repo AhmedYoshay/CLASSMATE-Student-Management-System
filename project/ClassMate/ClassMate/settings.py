@@ -47,8 +47,7 @@ INSTALLED_APPS = [
     'library',
     'temp',
     'section',
-    
-    
+    'attendance'
 ]
 
 MIDDLEWARE = [
@@ -60,6 +59,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+SESSION_COOKIE_AGE = 60 * 60 # 1 hour ke baad session delete
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_SAVE_EVERY_REQUEST = True 
+
+CSRF_COOKIE_SECURE = False 
+CSRF_COOKIE_HTTPONLY = True
 
 ROOT_URLCONF = 'ClassMate.urls'
 
