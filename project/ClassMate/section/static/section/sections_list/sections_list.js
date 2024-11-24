@@ -17,6 +17,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+function openConfirmationModal(sectionLabel, courseName, teacherName, availableSeats, capacity, sectionId) {
+    const sectionDetails = `Section: ${sectionLabel}<br>Course: ${courseName}<br>Teacher: ${teacherName}<br>Capacity: ${availableSeats} / ${capacity}`;
+    document.getElementById('sectionDetails').innerHTML = sectionDetails;
+    document.getElementById('confirmEnrollForm').action = `enroll/${sectionId}/`; 
+    document.getElementById('confirmationModal').style.display = "block";
+}
+
+function closeConfirmationModal() {
+    document.getElementById('confirmationModal').style.display = "none";
+}
+
+// Close the modal when clicking anywhere outside of it
+window.onclick = function(event) {
+    if (event.target === document.getElementById('confirmationModal')) {
+        closeConfirmationModal();
+    }
+}
+
 function showMessage(message, type) {
     const messagesContainer = document.getElementById('messagesContainer');
     if (messagesContainer) {
@@ -49,4 +67,3 @@ function adjustTableLayout() {
 
 window.addEventListener('load', adjustTableLayout);
 window.addEventListener('resize', adjustTableLayout);
-

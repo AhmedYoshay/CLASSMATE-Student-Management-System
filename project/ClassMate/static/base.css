@@ -29,7 +29,7 @@ body {
     color: white;
     height: 100vh;
     position: fixed;
-    left: -100%; /* Change from calc(-1 * var(--sidebar-width)) to -100% */
+    left: -100%;
     top: 0;
     transition: left 0.3s ease;
     z-index: 1000;
@@ -39,27 +39,14 @@ body {
 
 .sidebar.open {
     left: 0;
-    width: 100%; /* Add this line to make it full width on mobile */
-    max-width: 300px; /* Limit the maximum width */
 }
 
 .sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 15px;
 }
 
 .sidebar h3 {
     margin: 0;
-}
-
-.close-sidebar {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
 }
 
 .sidebar nav ul {
@@ -89,7 +76,11 @@ body {
     flex-grow: 1;
     transition: margin-left 0.3s ease;
     width: 100%;
-    padding-top: var(--top-bar-height); /* Add this line */
+    padding-top: var(--top-bar-height);
+}
+
+.main-content.sidebar-open {
+    margin-left: var(--sidebar-width);
 }
 
 .top-bar {
@@ -99,11 +90,11 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 0 15px;
-    position: fixed; /* Change from sticky to fixed */
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1001; /* Ensure it's above the sidebar */
+    z-index: 1001;
 }
 
 .content-wrapper {
@@ -132,267 +123,15 @@ body {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Course registration styles */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 15px;
-}
-
-.search-container {
-    margin-bottom: 20px;
-}
-
-#courseSearch {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-.sections-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    margin-top: 20px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.sections-table th {
-    background: var(--primary-color);
-    color: white;
-    padding: 12px;
-    text-align: left;
-}
-
-.sections-table td {
-    padding: 12px;
-    border-bottom: 1px solid #eee;
-}
-
-.enroll-btn {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-.enroll-btn:hover {
-    background-color: #2980b9;
-}
-
-.enroll-btn:disabled {
-    background-color: #95a5a6;
-    cursor: not-allowed;
-}
-
-.alert {
-    padding: 10px 20px;
-    margin: 10px 0;
-    border-radius: 5px;
-    font-size: 1em;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.alert.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-.alert.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-.alert.info {
-    background-color: #d1ecf1;
-    color: #0c5460;
-    border: 1px solid #bee5eb;
-}
-
-.tooltip {
-    position: relative;
-    display: inline-block;
-}
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 200px;
-    background-color: #34495e;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -100px;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
-
 /* Responsive styles */
-@media (min-width: 769px) {
-    .sidebar {
-        left: 0;
-        width: var(--sidebar-width);
-    }
-
-    .main-content {
-        margin-left: var(--sidebar-width);
-    }
-
-    .sidebar-toggle {
-        display: none;
-    }
-
-    .close-sidebar {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .layout {
-        display: block;
-    }
-
+@media (max-width: 768px) {
     .sidebar {
         width: 100%;
         max-width: 300px;
     }
 
-    .main-content {
-        width: 100%;
-        margin-left: 0 !important;
-    }
-
-    .top-bar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-    }
-
-    .content-wrapper {
-        margin-top: var(--top-bar-height);
-        padding: 15px;
-    }
-
-    .sidebar.open + .main-content {
-        position: fixed;
-        width: 100%;
-    }
-
-    .container {
-        padding: 10px;
-    }
-
-    .sections-table, 
-    .sections-table tbody, 
-    .sections-table tr, 
-    .sections-table td {
-        display: block;
-        width: 100%;
-    }
-
-    .sections-table thead {
-        display: none;
-    }
-
-    .sections-table tr {
-        margin-bottom: 20px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        background: white;
-    }
-
-    .sections-table td {
-        display: flex;
-        padding: 10px;
-        border: none;
-        border-bottom: 1px solid #eee;
-    }
-
-    .sections-table td::before {
-        content: attr(data-label);
-        font-weight: bold;
-        width: 120px;
-        min-width: 120px;
-        padding-right: 15px;
-    }
-
-    .enroll-btn {
-        width: 100%;
-        margin-top: 5px;
-        padding: 12px;
-    }
-
-    .tooltip {
-        position: static;
-    }
-
-    .tooltip .tooltiptext {
-        position: static;
-        visibility: visible;
-        opacity: 1;
-        width: 100%;
-        margin: 5px 0 0 0;
-        background: #f8f9fa;
-        color: #333;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .top-bar {
-        padding: 8px;
-    }
-
-    .content-wrapper {
-        padding: 10px;
-    }
-
-    .sidebar {
-        width: 100%;
-        max-width: none;
-    }
-
-    .sections-table td {
-        flex-direction: column;
-    }
-
-    .sections-table td::before {
-        margin-bottom: 5px;
-    }
-
-    .enroll-btn {
-        font-size: 16px;
-        padding: 10px;
-    }
-
-    .logout-button {
-        padding: 8px 12px;
-        font-size: 14px;
+    .main-content.sidebar-open {
+        margin-left: 0;
     }
 }
 

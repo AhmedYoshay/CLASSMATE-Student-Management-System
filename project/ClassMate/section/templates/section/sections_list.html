@@ -4,7 +4,7 @@
 {% block title %}Course Registration{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'section/sections_list.css' %}">
+<link rel="stylesheet" href="{% static 'section/sections_list/sections_list.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -63,28 +63,22 @@
                 </td>
                 <td data-label="Action">
                     <div class="tooltip">
-                        <form method="post" action="{% url 'enroll_section' section.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="enroll-btn" 
-                                    {% if not section.can_enroll %}disabled{% endif %}>
-                                Enroll
-                            </button>
-                        </form>
-                        {% if not section.can_enroll %}
-                            <span class="tooltiptext">
-                                {% if section.available_seats <= 0 %}
-                                    No available seats
-                                {% endif %}
-                                {% if section.missing_prereqs %}
-                                    Missing Prerequisites: {{ section.missing_prereqs|join:", " }}
-                                {% endif %}
-                                {% if section.would_exceed_credits %}
-                                    Would exceed 18 credit hours (Current: {{ section.current_credits }})
-                                {% endif %}
-                            </span>
+                        <button type="button" class="enroll-btn"
+                                {% if not section.can_enroll %}disabled{% endif %}
+                                onclick="openConfirmationModal('{{ section.section_label }}', '{{ section.course.course_name }}', '{{ section.teacher.user.first_name }} {{ section.teacher.user.last_name }}', '{{ section.available_seats }}', '{{ section.capacity }}', '{{ section.id }}')">
+                            Enroll
+                        </button>
+                        {% if section.available_seats|floatformat:0 <= 0 %}
+                            <span class="tooltiptext">No available seats</span>
+                        {% endif %}
+                        {% if section.missing_prereqs %}
+                            <span class="tooltiptext">Missing Prerequisites: {{ section.missing_prereqs|join:", " }}</span>
+                        {% endif %}
+                        {% if section.would_exceed_credits %}
+                            <span class="tooltiptext">Would exceed 18 credit hours (Current: {{ section.current_credits }})</span>
                         {% endif %}
                     </div>
-                </td>
+                </td>                
             </tr>
             {% empty %}
             <tr>
@@ -94,9 +88,23 @@
         </tbody>
     </table>
 </div>
+
+<!-- Confirmation Modal -->
+<div id="confirmationModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeConfirmationModal()">&times;</span>
+        <h2>Confirm Enrollment</h2>
+        
+        <p id="sectionDetails"></p>
+        <form method="post" id="confirmEnrollForm">
+            {% csrf_token %}
+            <button type="submit" class="enroll-btn">Confirm Enrollment</button>
+        </form>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'section/sections_list.js' %}"></script>
+<script src="{% static 'section/sections_list/sections_list.js' %}"></script>
 {% endblock %}
-

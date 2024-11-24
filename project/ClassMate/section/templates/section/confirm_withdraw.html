@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}withdraw{% endblock %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'section/confirm_withdraw/confirm_withdraw.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Withdraw Confirmation</h1>
+
+    <div id="messagesContainer">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">
+                    <span class="alert-icon">
+                        {% if 'success' in message.tags %}
+                            &#x2714;
+                        {% elif 'error' in message.tags %}
+                            &#x26A0;
+                        {% elif 'info' in message.tags %}
+                            &#x2139;
+                        {% endif %}
+                    </span>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <p class="info">
+        Are you sure you want to withdraw from <strong>{{ enrollment.section.course.course_name }}</strong>?
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="password">Enter your password to confirm:</label>
+        <input type="password" id="password" name="password" required class="input-field">
+        
+        <div class="button-container">
+            <button type="submit" class="enroll-btn">Confirm Withdrawal</button>
+            <a href="{% url 'enrolled_sections' %}" class="cancel-btn">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'section/confirm_withdraw/confirm_withdraw.js' %}"></script>
+{% endblock %}

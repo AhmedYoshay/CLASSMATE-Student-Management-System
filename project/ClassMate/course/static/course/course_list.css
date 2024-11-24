@@ -10,6 +10,20 @@ h1 {
     margin-bottom: 30px;
 }
 
+.search-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#courseSearch {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #3498db;
+    border-radius: 4px;
+}
+
 .course-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -90,3 +104,4 @@ h1 {
 .course-prerequisites strong {
     font-weight: bold;
 }
+

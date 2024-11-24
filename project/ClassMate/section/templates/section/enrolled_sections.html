@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}My Courses{% endblock %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'section/enrolled_sections/enrolled_sections.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Enrolled Sections</h1>
+
+    <div id="messagesContainer">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">
+                    <span class="alert-icon">
+                        {% if 'success' in message.tags %}
+                            &#x2714;
+                        {% elif 'error' in message.tags %}
+                            &#x26A0;
+                        {% elif 'info' in message.tags %}
+                            &#x2139;
+                        {% endif %}
+                    </span>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    {% if enrollments %}
+    <div class="table-container">
+        <table class="sections-table">
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Teacher</th>
+                    <th>Credits</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for enrollment in enrollments %}
+                <tr>
+                    <td data-label="Course">{{ enrollment.section.course.course_name }}</td>
+                    <td data-label="Teacher">{{ enrollment.section.teacher.user.first_name }} {{ enrollment.section.teacher.user.last_name }}</td>
+                    <td data-label="Credits">{{ enrollment.section.course.credits }}</td>
+                    <td data-label="Actions">
+                        <!-- Link to withdraw page -->
+                        <a href="{% url 'withdraw_section' enrollment.id %}" class="enroll-btn">Withdraw</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="alert info">You are not enrolled in any sections.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'section/enrolled_sections/enrolled_sections.js' %}"></script>
+{% endblock %}
