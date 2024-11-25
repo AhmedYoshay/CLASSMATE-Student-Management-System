@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'library',
     'temp',
     'section',
-    'attendance'
+    'attendance',
+    'marks',
 ]
 
 MIDDLEWARE = [

@@ -2,12 +2,13 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Attendance
 from section.models import Section, Enrollment
+from ClassMate.decorators import teacher_required,student_required
 
 @login_required
+@student_required
 def show_attendance(request, section_id=None):
     student = request.user.student
 
-    # Get the enrollments of the student for sections where the status is 'Enrolled'
     enrollments = Enrollment.objects.select_related('section').filter(
         student=student,
         status='Enrolled'
@@ -26,7 +27,7 @@ def show_attendance(request, section_id=None):
     attendance_records = []
     percentage = 100  
     if current_section:
-        attendance_records = Attendance.objects.filter(section=current_section).order_by('date')
+        attendance_records = Attendance.objects.filter(student=student,section=current_section).order_by('date')
 
         total_days = attendance_records.count()
         present_days = attendance_records.filter(status='P').count()

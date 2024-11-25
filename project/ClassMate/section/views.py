@@ -6,8 +6,10 @@ from .models import Section, Enrollment
 from course.models import Prerequisite
 from django.contrib.auth import authenticate
 from django.contrib.messages import get_messages
+from ClassMate.decorators import teacher_required,student_required
 
 @login_required
+@student_required
 def sections_list(request):
     student = request.user.student
     sections = Section.objects.select_related('course', 'teacher').annotate(
@@ -30,6 +32,7 @@ def sections_list(request):
     return render(request, 'section/sections_list.html', {'sections': sections})
 
 @login_required
+@student_required
 def enroll_section(request, section_id):
     student = request.user.student
     section = get_object_or_404(Section, id=section_id)
@@ -62,7 +65,6 @@ def enroll_section(request, section_id):
         messages.error(request, f"You have already enrolled in or completed the course: {section.course.course_name}")
         return redirect('sections_list')
 
-    # Enroll the student in the section
     Enrollment.objects.create(student=student, section=section, status='Enrolled')
     messages.success(request, f"Successfully enrolled in {section.course.course_name}")
     return redirect('sections_list')
@@ -88,6 +90,7 @@ def get_missing_prerequisites(student, course):
 
 
 @login_required
+@student_required
 def enrolled_sections(request):
     student = request.user.student
     enrollments = Enrollment.objects.select_related('section').filter(
@@ -97,9 +100,8 @@ def enrolled_sections(request):
 
     return render(request, 'section/enrolled_sections.html', {'enrollments': enrollments})
 
-
-
 @login_required
+@student_required
 def withdraw_section(request, enrollment_id):
     student = request.user.student
     enrollment = get_object_or_404(Enrollment, id=enrollment_id, student=student, status='Enrolled')

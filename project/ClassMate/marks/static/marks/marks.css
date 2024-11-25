@@ -1,0 +1,203 @@
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+.marks-navbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.marks-navbar a {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.marks-navbar a:hover,
+.marks-navbar a.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.marks-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.course-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.marks-details {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.heading-container {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+.heading-title {
+    background-color: #2c7be5;
+    color: #fff;
+    padding: 15px;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.heading-title:hover {
+    background-color: #1c5fbe;
+}
+
+.toggle-icon {
+    font-size: 0.8em;
+}
+
+.subcategory-list {
+    display: none;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.subcategory-list.active {
+    display: block;
+}
+
+.marks-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.marks-table th,
+.marks-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.marks-table th {
+    background-color: #2c7be5;
+    color: white;
+    font-weight: bold;
+}
+
+.marks-table tr:last-child td {
+    border-bottom: none;
+}
+
+.marks-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.marks-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.no-sections {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .marks-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .marks-table {
+        font-size: 14px;
+    }
+
+    .marks-table th,
+    .marks-table td {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .marks-table {
+        font-size: 12px;
+    }
+
+    .marks-table th,
+    .marks-table td {
+        padding: 6px;
+    }
+
+    .heading-title {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .subcategory-list {
+        overflow-x: auto;
+    }
+
+    .marks-table {
+        min-width: 600px;
+    }
+}
+
+.analysis-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.analysis-section h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #007bff;
+    text-align: center;
+}
+
+.analysis-section p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.analysis-section p span {
+    font-weight: bold;
+    color: #333;
+}
+
+#bellCurve {
+    display: block;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
