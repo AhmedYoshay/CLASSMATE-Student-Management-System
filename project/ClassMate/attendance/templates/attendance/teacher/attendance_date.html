@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'attendance/teacher/attendance_date.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ section.course.course_code }} - {{ section.course.course_name }}</h1>
+    <h2>Attendance for {{ date }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in attendance_records %}
+                <tr>
+                    <td data-label="Student">{{ record.student.user.username }}</td>
+                    <td data-label="Status">
+                        <select name="status_{{ record.student.id }}">
+                            <option value="P" {% if record.status == 'P' %}selected{% endif %}>Present</option>
+                            <option value="A" {% if record.status == 'A' %}selected{% endif %}>Absent</option>
+                            <option value="L" {% if record.status == 'L' %}selected{% endif %}>Late</option>
+                            <option value="U" {% if record.status == 'U' %}selected{% endif %}>Unset</option>
+                        </select>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <a href="{% url 'teacher_attendance' section.id %}">Back to Attendance List</a>
+</div>
+{% endblock %}

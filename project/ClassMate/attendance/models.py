@@ -8,7 +8,8 @@ class Attendance(models.Model):
     date = models.DateField()  
     status = models.CharField(
         max_length=1,
-        choices=[('P', 'Present'), ('A', 'Absent'), ('L', 'Late')]  
+        choices=[('P', 'Present'), ('A', 'Absent'), ('L', 'Late'),('U', 'Unset')],
+        default='U'  
     )
 
     class Meta:

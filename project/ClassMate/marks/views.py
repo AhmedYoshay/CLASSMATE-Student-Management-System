@@ -1,9 +1,13 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Heading,Subcategory,MarksEntry
+from .models import Heading, Subcategory, MarksEntry
 from section.models import Section, Enrollment
-from ClassMate.decorators import teacher_required,student_required
-from django.db.models import Avg, Max, Min, Count
+from ClassMate.decorators import teacher_required, student_required
+from django.db.models import Avg, Max, Min
+from statistics import stdev
+from decimal import Decimal
+import json
 
 @login_required
 @student_required
@@ -77,22 +81,24 @@ def show_marks(request, section_id=None):
                         )
                 student_percentages.append(total_student_marks)
 
-            user_percentile = (
-                sum(1 for percentage in student_percentages if percentage <= obtained_weighted_marks)
-                / len(student_percentages)
-            ) * 100
+            class_std_dev = round(stdev(student_percentages), 2) if len(student_percentages) > 1 else 0
 
             analysis_data = {
                 'total_weightage': total_weightage,
                 'obtained_weightage': round(obtained_weighted_marks, 2),
-                'user_percentile': round(user_percentile, 2),
+                'class_std_dev': class_std_dev,
                 'class_avg': round(sum(student_percentages) / len(student_percentages), 2),
             }
+            analysis_data = {key: float(value) if isinstance(value, Decimal) else value for key, value in analysis_data.items()}
 
-    return render(request, 'marks/marks.html', {
+    return render(request, 'marks/student/marks.html', {
         'sections': sections,
         'current_section': current_section,
         'marks_data': marks_data,
-        'analysis_data': analysis_data,
+        'analysis_data': json.dumps(analysis_data),
     })
 
+@login_required
+@teacher_required 
+def teacher_marks(request, section_id=None):
+    return HttpResponse("Teacher is logged in and can view marks.")

@@ -20,25 +20,37 @@
             </div>
             <nav>
                 <ul>    
-                    <li><a href="{% url 'show_attendance'%}">Attendance</a></li> 
-                    <li><a href="{% url 'show_marks' %}">Marks</a></li>
+                    {% if user.teacher %}
+                        <li><a href="{% url 'teacher_attendance'%}">Attendance</a></li> 
+                    {% else %}
+                        <li><a href="{% url 'show_attendance'%}">Attendance</a></li> 
+                    {% endif %}
+                    
+                    {% if user.teacher%}
+                        <li><a href="{% url 'teacher_marks' %}">Marks</a></li>
+                    {% else %}
+                        <li><a href="{% url 'show_marks' %}">Marks</a></li>
+                    {% endif %}
+                    
                     <li><a href="{% url 'library-books' %}">Library</a></li>
-                    <li><a href="{% url 'course_list' %}">Courses</a></li>
-                    <li><a href="{% url 'sections_list' %}">Course Registration</a></li>
-                    <li><a href="{% url 'enrolled_sections' %}">Course withdraw</a></li>
-                    <li><a href="#">Transcript</a></li>
+                    {% if user.student %}
+                        <li><a href="{% url 'course_list' %}">Courses</a></li>
+                        <li><a href="{% url 'sections_list' %}">Course Registration</a></li>
+                        <li><a href="{% url 'enrolled_sections' %}">Course withdraw</a></li>
+                        <li><a href="#">Transcript</a></li>
+                    {% endif %}
                     <li><a href="#">Classroom</a></li>
                 </ul>
             </nav>
         </aside>
         
-        <!-- Main Content Section -->
         <main class="main-content" id="main-content">
             <div class="top-bar">
                 <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle Sidebar">☰</button>
-                
-                <!-- Logout Button -->
                 {% if user.is_authenticated %}
+                    <div class="user-name-box">
+                        <a href="">{{ user.first_name }} {{ user.last_name }}</a>
+                    </div>
                     <div class="logout-container">
                         <a href="{% url 'logout' %}" class="logout-button">Logout</a>
                     </div>

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'marks/student/marks.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="marks-navbar">
+    {% for section in sections %}
+    <a href="{% url 'show_marks' section.id %}" 
+       class="{% if current_section and section.id == current_section.id %}active{% endif %}">
+        {{ section.course.course_code }}
+    </a>
+    {% endfor %}
+</div>
+
+{% block section_content %}
+<div class="marks-container">
+    {% if current_section %}
+    <h2 class="course-title">{{ current_section.course.course_code }} {{ current_section.course.course_name }}</h2>
+
+    <div class="marks-details">
+        {% for heading_data in marks_data %}
+        <div class="heading-container">
+            <h3 class="heading-title" onclick="toggleSubcategories(this)">
+                <span class="heading-text">{{ heading_data.heading.name }}</span>
+                <span class="toggle-icon">&#9660;</span>
+            </h3>
+            <div class="subcategory-list">
+                <table class="marks-table">
+                    <thead>
+                        <tr>
+                            <th>Subcategory</th>
+                            <th>Obtained</th>
+                            <th>Total</th>
+                            <th>Min</th>
+                            <th>Max</th>
+                            <th>Avg</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for subcategory_data in heading_data.subcategories %}
+                        <tr>
+                            <td>{{ subcategory_data.subcategory.name }}</td>
+                            <td>{{ subcategory_data.student_marks }}</td>
+                            <td>{{ subcategory_data.subcategory.total_marks }}</td>
+                            <td>{{ subcategory_data.min_marks }}</td>
+                            <td>{{ subcategory_data.max_marks }}</td>
+                            <td>{{ subcategory_data.avg_marks }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endfor %}
+        <!-- Analysis -->
+        <div class="heading-container">
+            <h3 class="heading-title" onclick="toggleSubcategories(this)">
+                <span class="heading-text">Analysis</span>
+                <span class="toggle-icon">&#9660;</span>
+            </h3>
+            <div class="subcategory-list">
+                <div class="bell-curve-container">
+                    <canvas id="bellCurveCanvas"></canvas>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+    <script id="analysis-data" type="application/json">
+        {{ analysis_data|safe }}
+    </script>
+    
+    
+    {% else %}
+    <p class="no-sections">No sections available.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'marks/student/marks.js' %}"></script>
+{% endblock %}

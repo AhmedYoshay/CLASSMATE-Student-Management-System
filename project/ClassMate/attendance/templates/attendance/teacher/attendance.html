@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'attendance/teacher/attendance.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="attendance-navbar">
+    {% for section in sections %}
+    <a href="{% url 'teacher_attendance' section.id %}" 
+       class="{% if current_section and section.id == current_section.id %}active{% endif %}">
+        {{ section.course.course_code }}
+    </a>
+    {% endfor %}
+</div>
+
+<div class="attendance-container">
+    {% block section_content %}
+    <div class="attendance-header">
+        <h1>{{ current_section.course.course_code }} - {{ current_section.course.course_name }}</h1>
+    </div>
+
+    <div class="attendance-records">
+        <h2>Attendance Records</h2>
+        <div class="table-responsive">
+            <table class="attendance-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for date in attendance_dates %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'teacher_attendance_date' current_section.id date %}" class="date-link">
+                                {{ date }}
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2">No attendance records yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="new-attendance">
+        <h2>Add New Attendance Record</h2>
+        <form method="POST" class="attendance-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Attendance</button>
+        </form>
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}
+
