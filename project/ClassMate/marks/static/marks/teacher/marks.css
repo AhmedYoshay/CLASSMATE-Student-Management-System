@@ -1,0 +1,25 @@
+.marks-navbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.marks-navbar a {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.marks-navbar a:hover,
+.marks-navbar a.active {
+    background-color: #007bff;
+    color: #fff;
+}

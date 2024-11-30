@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'marks/teacher/marks.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="marks-navbar">
+    {% for section in sections %}
+    <a href="{% url 'teacher_marks' section.id %}" 
+       class="{% if current_section and section.id == current_section.id %}active{% endif %}">
+        {{ section.course.course_code }}
+    </a>
+    {% endfor %}
+</div>
+
+<div class="marks-container">
+    {% block section_content %}
+        <div class="marks-header">
+            <h1>{{ current_section.course.course_code }} - {{ current_section.course.course_name }}</h1>
+        </div>
+
+
+        <div class="headings-container">
+            {% for heading in headings %}
+                <div class="heading-item">
+                    <div class="heading-title">
+                        <h2>{{ heading.name }}</h2>
+                        <button class="toggle-subcategories" onclick="toggleSubcategories('{{ heading.id }}')">Toggle Subcategories</button>
+                    </div>
+                    
+                    <div id="subcategories-{{ heading.id }}" class="subcategories hidden">
+                        <ul>
+                            {% for subcategory in heading.subcategories.all %}
+                                <li>
+                                    <a href="{% url 'enter_marks' current_section.id subcategory.id %}">{{ subcategory.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        
+                        <!-- Add New Subcategory Form -->
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <input type="hidden" name="heading_id" value="{{ heading.id }}">
+                            <input type="text" name="subcategory_name" placeholder="Add new subcategory" required>
+                            <input type="number" name="total_marks" placeholder="Total Marks" required>
+                            <input type="number" step="0.01" name="weightage" placeholder="Weightage" required>
+                            <button type="submit">Add</button>
+                        </form>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div>
+            <!-- Add New Heading Form -->
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" name="heading_name" placeholder="Add new heading" required>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+        <script>
+            function toggleSubcategories(headingId) {
+            const subcategoriesDiv = document.getElementById(`subcategories-${headingId}`);
+            subcategoriesDiv.classList.toggle('hidden');
+            }
+        </script>
+        <style>
+            .hidden { display: none; }
+        </style>
+    {% endblock %}
+
+</div>
+
+{% endblock %}
+

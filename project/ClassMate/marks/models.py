@@ -22,10 +22,10 @@ class Subcategory(models.Model):
 class MarksEntry(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, related_name="marks_entries")
-    marks = models.DecimalField(max_digits=5, decimal_places=2) 
+    marks = models.DecimalField(max_digits=5, decimal_places=2, null=True)
     
     def clean(self):
-        if self.marks > self.subcategory.total_marks:
+        if self.marks is not None and self.marks > self.subcategory.total_marks:
             raise ValidationError("Marks cannot exceed the total marks of the subcategory.")
 
     def save(self, *args, **kwargs):
