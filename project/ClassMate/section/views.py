@@ -7,6 +7,7 @@ from course.models import Prerequisite
 from django.contrib.auth import authenticate
 from django.contrib.messages import get_messages
 from ClassMate.decorators import teacher_required,student_required
+from django.db import transaction
 
 @login_required
 @student_required
@@ -35,39 +36,41 @@ def sections_list(request):
 @student_required
 def enroll_section(request, section_id):
     student = request.user.student
-    section = get_object_or_404(Section, id=section_id)
-
-    enrolled_students_count = Enrollment.objects.filter(section=section, status='Enrolled').count()
-    available_seats = max(0, section.capacity - enrolled_students_count)
-
-    if available_seats <= 0:
-        messages.error(request, "Sorry, this section is full.")
-        return redirect('sections_list')
-
-    missing_prereqs = get_missing_prerequisites(student, section.course)
-    if missing_prereqs:
-        message = "Missing prerequisites: " + ", ".join(missing_prereqs)
-        messages.error(request, message)
-        return redirect('sections_list')
-
-    current_credits = get_current_credits(student)
-    if current_credits + section.course.credits > 18:
-        messages.error(request, "Enrollment would exceed 18 credit hours limit.")
-        return redirect('sections_list')
     
-    already_enrolled_or_completed = Enrollment.objects.filter(
-        student=student,
-        section__course=section.course,
-        status__in=['Enrolled', 'Completed']
-    ).exists()
+    with transaction.atomic():
+        section = get_object_or_404(Section, id=section_id)
 
-    if already_enrolled_or_completed:
-        messages.error(request, f"You have already enrolled in or completed the course: {section.course.course_name}")
+        enrolled_students_count = Enrollment.objects.filter(section=section, status='Enrolled').count()
+        available_seats = max(0, section.capacity - enrolled_students_count)
+
+        if available_seats <= 0:
+            messages.error(request, "Sorry, this section is full.")
+            return redirect('sections_list')
+
+        missing_prereqs = get_missing_prerequisites(student, section.course)
+        if missing_prereqs:
+            message = "Missing prerequisites: " + ", ".join(missing_prereqs)
+            messages.error(request, message)
+            return redirect('sections_list')
+
+        current_credits = get_current_credits(student)
+        if current_credits + section.course.credits > 18:
+            messages.error(request, "Enrollment would exceed 18 credit hours limit.")
+            return redirect('sections_list')
+        
+        already_enrolled_or_completed = Enrollment.objects.filter(
+            student=student,
+            section__course=section.course,
+            status__in=['Enrolled', 'Completed']
+        ).exists()
+
+        if already_enrolled_or_completed:
+            messages.error(request, f"You have already enrolled in or completed the course: {section.course.course_name}")
+            return redirect('sections_list')
+
+        Enrollment.objects.create(student=student, section=section, status='Enrolled')
+        messages.success(request, f"Successfully enrolled in {section.course.course_name}")
         return redirect('sections_list')
-
-    Enrollment.objects.create(student=student, section=section, status='Enrolled')
-    messages.success(request, f"Successfully enrolled in {section.course.course_name}")
-    return redirect('sections_list')
 
 def get_current_credits(student):
     return Enrollment.objects.filter(
