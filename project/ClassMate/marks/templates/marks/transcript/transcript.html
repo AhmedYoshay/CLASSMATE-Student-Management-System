@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'marks/transcript/transcript.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="transcript-wrapper">
+    <div class="transcript-container">
+        <button class="print-button" onclick="window.print()">Print Transcript</button>
+        
+        <h1>{{ student.user.first_name }} {{ student.user.last_name }} - Transcript</h1>
+        <h2>CGPA: {{ cgpa|floatformat:2 }}</h2>
+        
+        <table class="transcript-table">
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Course Code</th>
+                    <th>Grade Obtained</th>
+                    <th>Total Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for grade in grades %}
+                <tr>
+                    <td>{{ grade.course.course_name }}</td>
+                    <td>{{ grade.course.course_code }}</td>
+                    <td>{{ grade.gpa }}</td>
+                    <td>4.00</td>  <!-- Total Grade is always 4 -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def index1(request):
+    
+    user = request.user
     users = CustomUser.objects.all()  
     students = Student.objects.select_related('user').all()  
     

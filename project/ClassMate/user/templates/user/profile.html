@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'user/profile.css' %}">
+{% endblock %}
+{% block content %}
+<div class="profile-container">
+    <h1>User Profile</h1>
+
+    {% if user.student %}
+        <h2>Student Information</h2>
+        <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Program:</strong> {{ user.student.program }}</p>
+        <p><strong>Status:</strong> {{ user.student.status }}</p>
+    
+    {% elif user.teacher %}
+        <h2>Teacher Information</h2>
+        <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Program:</strong> {{ user.teacher.program }}</p>
+        <p><strong>Status:</strong> {{ user.teacher.status }}</p>
+        <p><strong>Salary:</strong> RS {{ user.teacher.salary }}</p>
+    {% endif %}
+</div>
+{% endblock %}

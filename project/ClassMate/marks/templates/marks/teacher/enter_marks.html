@@ -1,6 +1,18 @@
 {% extends "base.html" %}
+{% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'marks/teacher/enter_marks.css' %}">
+{% endblock %}
 {% block content %}
+    {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    
     <h1>Edit Marks for {{ section.course.course_code }} - {{ section.course.course_name }}</h1>
     <h2>Subcategory: {{ subcategory.name }}</h2>
     

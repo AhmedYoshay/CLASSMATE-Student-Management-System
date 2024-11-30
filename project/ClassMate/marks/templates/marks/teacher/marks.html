@@ -17,6 +17,15 @@
 
 <div class="marks-container">
     {% block section_content %}
+        {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+  
+  
         <div class="marks-header">
             <h1>{{ current_section.course.course_code }} - {{ current_section.course.course_name }}</h1>
         </div>
@@ -70,9 +79,38 @@
         <style>
             .hidden { display: none; }
         </style>
+        <div>
+            {% if not current_section.finalized %}
+            <button onclick="toggleSubmitGradeModal()">Submit Grades</button>
+        
+            <div id="submit-grade-modal" class="hidden">
+                <form method="POST" action="{% url 'submit_grades' current_section.id %}">
+                    {% csrf_token %}
+                    <h2>Confirm Grade Submission</h2>
+                    <label for="teacher-password">Password:</label>
+                    <input type="password" name="teacher_password" id="teacher-password" required>
+                    <button type="submit">Confirm</button>
+                    <button type="button" onclick="toggleSubmitGradeModal()">Cancel</button>
+                </form>
+            </div>
+            {% else %}
+            <p>Grades for this section have already been submitted.</p>
+            {% endif %}
+        </div>
+        
+        <script>
+            function toggleSubmitGradeModal() {
+                const modal = document.getElementById("submit-grade-modal");
+                modal.classList.toggle("hidden");
+            }
+        </script>
+        
+        <style>
+            .hidden { display: none; }
+            #submit-grade-modal { background: #fff; padding: 20px; border: 1px solid #ccc; }
+        </style>
     {% endblock %}
 
 </div>
 
 {% endblock %}
-

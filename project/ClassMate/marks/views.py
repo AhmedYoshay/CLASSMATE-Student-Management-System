@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
-from .models import Heading, Subcategory, MarksEntry
+from .models import Heading, Subcategory, MarksEntry,Grade
 from section.models import Section, Enrollment
 from ClassMate.decorators import teacher_required, student_required
 from django.db.models import Avg, Max, Min
@@ -10,6 +10,9 @@ from decimal import Decimal
 import json
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.contrib.auth import authenticate
+from django.db.models import Sum
+from django.contrib import messages
 
 @login_required
 @student_required
@@ -114,6 +117,7 @@ def show_marks(request, section_id=None):
     })
 
 
+
 @login_required
 @teacher_required
 def teacher_marks(request, section_id=None):
@@ -130,7 +134,11 @@ def teacher_marks(request, section_id=None):
 
     headings = Heading.objects.filter(section=current_section).prefetch_related('subcategories') if current_section else []
 
-    if request.method == 'POST':
+    if current_section and current_section.finalized:
+        # Add the message only when user tries to perform an action while grades are finalized
+        messages.warning(request, "Grades have already been submitted for this section. You cannot add/edit headings, subcategories, or marks.")
+
+    if request.method == 'POST' and not current_section.finalized:
         # Adding a new heading
         new_heading_name = request.POST.get('heading_name')
         if new_heading_name:
@@ -171,7 +179,6 @@ def teacher_marks(request, section_id=None):
     })
 
 
-
 @login_required
 @teacher_required
 def enter_marks(request, section_id, subcategory_id):
@@ -181,6 +188,10 @@ def enter_marks(request, section_id, subcategory_id):
     if not section:
         return HttpResponseForbidden("You do not have access to this section.")
     
+    if section.finalized:
+        # Add the message only when user tries to edit marks after grades are finalized
+        messages.warning(request, "Grades have already been submitted for this section. You cannot edit marks anymore.")
+
     # Get the subcategory and total marks for the subcategory
     subcategory = Subcategory.objects.filter(id=subcategory_id).first()
     if not subcategory:
@@ -192,7 +203,7 @@ def enter_marks(request, section_id, subcategory_id):
     marks_entries = MarksEntry.objects.filter(subcategory_id=subcategory_id)
     
     # Handle form submission for updating marks
-    if request.method == 'POST':
+    if request.method == 'POST' and not section.finalized:
         for entry in marks_entries:
             # Retrieve the new marks from the form
             new_marks = request.POST.get(f'marks_{entry.id}')
@@ -203,13 +214,81 @@ def enter_marks(request, section_id, subcategory_id):
         
         redirect_url = reverse('teacher_marks', args=[section_id])
 
-# Redirect the user to the section page without the subcategory
         return HttpResponseRedirect(redirect_url)
 
-    
     return render(request, 'marks/teacher/enter_marks.html', {
         'section': section,
         'marks_entries': marks_entries,
         'subcategory': subcategory,
         'total_marks': total_marks,  # Pass total marks to the template
+    })
+
+@login_required
+@teacher_required
+def submit_grades(request, section_id):
+    teacher = request.user.teacher
+    section = Section.objects.filter(id=section_id, teacher=teacher).first()
+
+    if not section:
+        return HttpResponseForbidden("You do not have access to this section.")
+
+    if request.method == 'POST':
+        password = request.POST.get('teacher_password')
+        user = authenticate(username=teacher.user.username, password=password)
+        if not user:
+            return HttpResponse("Invalid password.", status=400)
+
+        if getattr(section, 'finalized', False):
+            return HttpResponse("Grades have already been submitted for this section.", status=400)
+
+        enrollments = Enrollment.objects.filter(section=section, status='Enrolled')
+        total_weightage = Subcategory.objects.filter(heading__section=section).aggregate(total_weight=Sum('weightage'))['total_weight'] or 0
+
+        if total_weightage == 0:
+            return HttpResponse("No valid subcategories or weightage found.", status=400)
+
+        for enrollment in enrollments:
+            student = enrollment.student
+            total_obtained_marks = 0
+
+            subcategories = Subcategory.objects.filter(heading__section=section)
+            for subcategory in subcategories:
+                marks_entry = MarksEntry.objects.filter(student=student, subcategory=subcategory).first()
+                if marks_entry and marks_entry.marks is not None:
+                    total_obtained_marks += (marks_entry.marks / subcategory.total_marks) * subcategory.weightage
+
+            gpa = round((total_obtained_marks / total_weightage) * Decimal('4.0'), 2) 
+
+            Grade.objects.update_or_create(
+                student=student,
+                course=section.course,
+                defaults={'gpa': gpa}
+            )
+
+        section.finalized = True
+        section.save()
+
+        return HttpResponseRedirect(reverse('teacher_marks', args=[section_id]))
+
+
+@login_required
+@student_required
+def transcript_view(request):
+    student = request.user.student
+    grades = Grade.objects.filter(student=student)
+    
+    total_grade_points = 0
+    total_credit_hours = 0
+    
+    for grade in grades:
+        total_grade_points += grade.gpa * grade.course.credits
+        total_credit_hours += grade.course.credits
+    
+    cgpa = total_grade_points / total_credit_hours if total_credit_hours > 0 else 0
+    
+    student = grades.first().student
+    return render(request, 'marks/transcript/transcript.html', {
+        'student': student,
+        'grades': grades,
+        'cgpa': cgpa
     })

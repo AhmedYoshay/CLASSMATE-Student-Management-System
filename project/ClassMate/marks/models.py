@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from user.models import Student
+from course.models import Course
 from section.models import Section
 
 class Heading(models.Model):
@@ -34,3 +35,17 @@ class MarksEntry(models.Model):
 
     def __str__(self):
         return f"{self.student.user.username} - {self.subcategory.name}: {self.marks}"
+
+class Grade(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    gpa = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)  
+    comments = models.TextField(null=True, blank=True) 
+
+    class Meta:
+        unique_together = ('student', 'course')
+        verbose_name = "Grade"
+        verbose_name_plural = "Grades"
+
+    def __str__(self):
+        return f"{self.student.user.username} - {self.course.name} - GPA: {self.gpa}"

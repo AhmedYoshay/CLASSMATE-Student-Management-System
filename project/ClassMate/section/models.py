@@ -7,7 +7,7 @@ class Section(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)  
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE) 
     capacity = models.PositiveIntegerField()  
-
+    finalized = models.BooleanField(default=False)
     class Meta:
         unique_together = ('course', 'section_label')  
         verbose_name = "Section"  
