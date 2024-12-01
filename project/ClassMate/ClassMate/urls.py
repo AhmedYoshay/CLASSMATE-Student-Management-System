@@ -30,5 +30,6 @@ urlpatterns = [
     path('attendance/', include('attendance.urls')),
     path('marks/', include('marks.urls')),
     path('profile/', include('user.urls')),
-    
+    path('customAdmin/', include('customAdmin.urls')),
+    path('feedback/', include('feedback.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])

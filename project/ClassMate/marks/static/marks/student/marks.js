@@ -14,22 +14,6 @@ function toggleSubcategories(element) {
         }
     });
 }
-function toggleSubcategories(element) {
-    const subcategoryList = element.nextElementSibling;
-    const toggleIcon = element.querySelector('.toggle-icon');
-    const isVisible = subcategoryList.classList.contains('active');
-    
-    subcategoryList.classList.toggle('active');
-    toggleIcon.innerHTML = isVisible ? '&#9660;' : '&#9650;';
-    
-    const allSubcategoryLists = document.querySelectorAll('.subcategory-list');
-    allSubcategoryLists.forEach(list => {
-        if (list !== subcategoryList) {
-            list.classList.remove('active');
-            list.previousElementSibling.querySelector('.toggle-icon').innerHTML = '&#9660;';
-        }
-    });
-}
 document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById('bellCurveCanvas');
     const ctx = canvas.getContext('2d');

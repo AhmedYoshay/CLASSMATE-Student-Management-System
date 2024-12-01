@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'customAdmin/student/student.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="messagesContainer">
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+</div>
+<h1>Student Data</h1>
+<div class="table-responsive">
+    <div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Program</th> 
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <td>{{ student.user.username }}</td>
+                    <td>{{ student.user.first_name }}</td>
+                    <td>{{ student.user.last_name }}</td>
+                    <td>{{ student.user.email }}</td>
+                    <td>{{ student.status }}</td>
+                    <td>{{ student.program }}</td>
+                    <td>
+                        <a href="?edit={{ student.id }}">Edit</a>  
+                        <a href="?delete=true&edit={{ student.id }}" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+
+
+<h2>{% if form.instance.pk %}Edit{% else %}Add New{% endif %} Student</h2>
+<form method="POST" action="{% if form.instance.pk %}?edit={{ form.instance.pk }}{% endif %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% if is_edit_mode %}Update{% else %}Add{% endif %} Student</button>
+</form>
+
+{% endblock %}
+
+
+{% block extra_js %}
+    <script src="{% static 'customAdmin/student/student.js' %}"></script>
+{% endblock %}

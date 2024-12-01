@@ -4,19 +4,37 @@ ClassMate is a comprehensive web application designed to manage and enhance the 
 
 ---
 
+
 ## Features ✨
 
-- **User Authentication**: Secure login/logout system with role-based access (teacher, student, admin).
-- **Attendance Management**: Mark attendance with statuses (Present, Absent, Late) and view attendance reports.
-- **Marks Management**: Flexible and dynamic grading system, supporting multiple categories like quizzes, assignments, and exams with weightages.
-- **Course Registration and Withdrawal**: Students can register for or withdraw from courses while meeting prerequisites.
-- **Sections Management**: Handle multiple sections for the same course, allowing for different instructors or schedules.
-- **Library Books Management**: Track library books, including borrowing and returning details.
-- **Transcripts**: Generate and view academic transcripts.
-- **Feedback System**: Allow students to provide feedback on courses, instructors, and more.
-- **Profile Viewing**: Students and teachers can view and manage their profiles.
-- **Grade Analysis**: Analyze grades with tools like bell curve analysis, highlighting individual and overall performance.
+- **User Authentication**: Secure login/logout system with role-based access (teacher, student, admin). Admin has the ability to create, update, and delete user accounts.
 
+- **Attendance Management**: Mark attendance with statuses (Present, Absent, Late) and view attendance reports. Admin can view and export attendance data across all sections.
+
+- **Marks Management**: Flexible and dynamic grading system, supporting multiple categories like quizzes, assignments, and exams with weightages. Admin has access to view and manage grades across all courses and sections.
+
+- **Course Registration and Withdrawal**: Students can register for or withdraw from courses while meeting prerequisites. Admin can manage course offerings, update course details, and manage student enrollments.
+
+- **Sections Management**: Handle multiple sections for the same course, allowing for different instructors or schedules. Admin has control over creating and assigning sections, and managing student enrollment across sections.
+
+- **Library Books Management**: Track library books, including borrowing and returning details. Admin can add/remove books, manage library inventory, and track borrowing records.
+
+- **Transcripts**: Generate and view academic transcripts. Admin can access all student transcripts and generate reports for specific students or cohorts.
+
+- **Feedback System**: Allow students to provide feedback on courses, instructors, and more. Admin can review feedback for all courses and take necessary actions based on insights.
+
+- **Profile Viewing**: Students and teachers can view and manage their profiles. Admin can view and edit user profiles as needed, and manage permissions.
+
+- **Grade Analysis**: Analyze grades with tools like bell curve analysis, highlighting individual and overall performance. Admin can view detailed grade reports and analytics for all sections.
+
+### **Admin Features**:
+- **User Management**: Admin can create, update, and delete user accounts for students, teachers, and other admins.
+- **Course Management**: Admin can create and manage courses, assign teachers, configure course settings (e.g., prerequisites), and monitor course enrollment.
+- **Section Management**: Admin can manage section creation, assign teachers to sections, and oversee student enrollment in various sections.
+- **Attendance Monitoring**: Admin can access and export attendance reports for all students and sections.
+- **Marks Management**: Admin can view and edit marks for all students and sections, ensuring data accuracy.
+- **Library Management**: Admin has full control over the library’s catalog, including adding new books, managing borrowings, and tracking overdue books.
+- **Feedback Management**: Admin can view and manage all feedback submitted by students, ensuring that constructive feedback is used to improve courses and teaching.
 ---
 
 ## Technologies Used 🛠️
@@ -43,7 +61,7 @@ Follow these steps to set up the project locally:
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/Musaddiq123m/ClassMate.git
-   cd ClassMate
+   cd ClassMate/project/ClassMate
    ```
 
 2. **Set Up Virtual Environment**:
@@ -58,8 +76,26 @@ Follow these steps to set up the project locally:
    pip install -r requirements.txt
    ```
 
-4. **Configure the Database**:
-   - Update the `DATABASES` setting in `settings.py` with your PostgreSQL credentials.
+4. **Create and Configure `.env` File**:
+   - Create a file named `.env` in the project root directory.
+   - Add the following variables in the `.env` file, replacing the placeholders with your actual values:
+
+   ```env
+   SECRET_KEY='your-secret-key'
+   DEBUG=True
+   ALLOWED_HOSTS='localhost, 127.0.0.1'
+
+   RECAPTCHA_PUBLIC_KEY='your-recaptcha-public-key'
+   RECAPTCHA_PRIVATE_KEY='your-recaptcha-private-key'
+
+   EMAIL_HOST='smtp.your-email-provider.com'
+   EMAIL_PORT='587'
+   EMAIL_HOST_USER='your-email@example.com'
+   EMAIL_HOST_PASSWORD='your-email-password'
+   EMAIL_USE_TLS=True
+   ```
+
+   - Ensure your database credentials (such as `DATABASE_NAME`, `DATABASE_USER`, etc.) are also included in the `.env` file. Django will automatically read from this file to configure the database and other settings.
 
 5. **Apply Migrations**:
    ```bash
@@ -79,7 +115,6 @@ Follow these steps to set up the project locally:
 
 8. **Access the Application**:
    Open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
-
 
 ---
 

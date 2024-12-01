@@ -1,5 +1,5 @@
 django>=4.0
 psycopg2>=2.9
 django-recaptcha>=3.0.0
-statistics
-decimal
+django-simple-captcha
+python-dotenv

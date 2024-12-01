@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'customAdmin/library/book.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="messagesContainer">
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+</div>
+<h1>Book Data</h1>
+<div class="table-responsive">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>Available Copies</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.isbn }}</td>
+                        <td>{{ book.available_copies }}</td>
+                        <td>
+                            <a href="?edit={{ book.id }}">Edit</a>
+                            <a href="?delete=true&edit={{ book.id }}" onclick="return confirm('Are you sure you want to delete this book?');">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<h2>{% if form.instance.pk %}Edit{% else %}Add New{% endif %} Book</h2>
+<form method="POST" action="{% if form.instance.pk %}?edit={{ form.instance.pk }}{% endif %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% if is_edit_mode %}Update{% else %}Add{% endif %} Book</button>
+</form>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'customAdmin/library/book.js' %}"></script>
+{% endblock %}

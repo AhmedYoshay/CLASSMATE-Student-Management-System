@@ -257,7 +257,7 @@ def submit_grades(request, section_id):
                 if marks_entry and marks_entry.marks is not None:
                     total_obtained_marks += (marks_entry.marks / subcategory.total_marks) * subcategory.weightage
 
-            gpa = round((total_obtained_marks / total_weightage) * Decimal('4.0'), 2) 
+            gpa = round((total_obtained_marks / total_weightage) * Decimal('4.0'), 2)
 
             Grade.objects.update_or_create(
                 student=student,
@@ -265,10 +265,15 @@ def submit_grades(request, section_id):
                 defaults={'gpa': gpa}
             )
 
+            # status to Completed
+            enrollment.status = 'Completed'
+            enrollment.save()
+
         section.finalized = True
         section.save()
 
         return HttpResponseRedirect(reverse('teacher_marks', args=[section_id]))
+
 
 
 @login_required
@@ -286,7 +291,11 @@ def transcript_view(request):
     
     cgpa = total_grade_points / total_credit_hours if total_credit_hours > 0 else 0
     
-    student = grades.first().student
+    if grades:
+        student = grades.first().student
+    else:
+        return render(request,'marks/transcript/no_transcript.html')
+    
     return render(request, 'marks/transcript/transcript.html', {
         'student': student,
         'grades': grades,
