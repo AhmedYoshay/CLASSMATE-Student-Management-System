@@ -81,21 +81,31 @@ Follow these steps to set up the project locally:
    - Add the following variables in the `.env` file, replacing the placeholders with your actual values:
 
    ```env
-   SECRET_KEY='your-secret-key'
-   DEBUG=True
-   ALLOWED_HOSTS='localhost, 127.0.0.1'
+   # Security Settings
+   SECRET_KEY=your-secret-key
+   DEBUG=True  # Set to False in production
+   ALLOWED_HOSTS=localhost,127.0.0.1
 
-   RECAPTCHA_PUBLIC_KEY='your-recaptcha-public-key'
-   RECAPTCHA_PRIVATE_KEY='your-recaptcha-private-key'
+   # Database Configuration
+   DATABASE_URL=postgresql://<user>:<password>@<host>:<port>/<database>
 
-   EMAIL_HOST='smtp.your-email-provider.com'
-   EMAIL_PORT='587'
-   EMAIL_HOST_USER='your-email@example.com'
-   EMAIL_HOST_PASSWORD='your-email-password'
+   # ReCAPTCHA Keys 
+   RECAPTCHA_PUBLIC_KEY=
+   RECAPTCHA_PRIVATE_KEY=
+
+   # Email Settings
+   EMAIL_HOST=smtp.your-email-provider.com
+   EMAIL_PORT=587
+   EMAIL_HOST_USER=your-email@example.com
+   EMAIL_HOST_PASSWORD=your-email-password
    EMAIL_USE_TLS=True
+
    ```
 
-   - Ensure your database credentials (such as `DATABASE_NAME`, `DATABASE_USER`, etc.) are also included in the `.env` file. Django will automatically read from this file to configure the database and other settings.
+   Notes:
+   Replace <user>, <password>, <host>, <port>, and <database> in the DATABASE_URL with your actual database connection details.
+   The DATABASE_URL format is postgresql://<user>:<password>@<host>:<port>/<database>.
+   Ensure the .env file is added to .gitignore to prevent sensitive data from being tracked in version control.
 
 5. **Apply Migrations**:
    ```bash
