@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'section',
     'attendance',
     'marks',
-    'feedback'
+    'feedback',
+    'GradeChange',
 ]
 
 MIDDLEWARE = [

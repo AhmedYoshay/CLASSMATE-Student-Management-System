@@ -34,7 +34,7 @@ h2 {
 /* Table Styles */
 table {
     width: 100%;
-    min-width: 600px;
+    min-width: 600px; /* Adjust this value based on your table's content */
     border-collapse: collapse;
     margin-bottom: 30px;
     background-color: #fff;
@@ -99,12 +99,19 @@ form label {
 
 form input[type="text"],
 form input[type="email"],
-form select {
+form input[type="number"],
+form select,
+form textarea {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 3px;
     font-size: 14px;
+}
+
+form textarea {
+    height: 100px;
+    resize: vertical;
 }
 
 form button {
@@ -121,6 +128,7 @@ form button {
 form button:hover {
     background-color: #218838;
 }
+
 
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
@@ -233,38 +241,4 @@ form button:hover {
     background-color: #d1ecf1;
     border-color: #bee5eb;
     color: #0c5460;
-}
-.search-bar {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.search-bar input {
-    width: 80%;
-    max-width: 400px;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.search-bar input:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-.search-bar input::placeholder {
-    color: #888;
-    font-style: italic;
-}
-
-@media screen and (max-width: 768px) {
-    .search-bar input {
-        width: 90%;
-        padding: 8px 10px;
-        font-size: 14px;
-    }
 }

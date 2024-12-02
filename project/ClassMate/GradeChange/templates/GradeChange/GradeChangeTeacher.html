@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'GradeChange/GradeChangeTeacher.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="messagesContainer">
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+</div>
+
+<h1>Feedback Data</h1>
+
+<!-- Search Bar -->
+<input type="text" id="searchInput" placeholder="Search feedback...">
+
+<div class="table-responsive">
+    <div class="table-wrapper">
+        {% if feedbacks %}
+        <table id="feedbackTable">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Section</th>
+                    <th>Feedback</th>
+                    <th>Submission Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for feedback in feedbacks %}
+                {% if feedback.starred %}
+                    <tr class="feedbackRow">
+                        <td>{{ feedback.student.user.username }}</td>
+                        <td>{{ feedback.section }}</td>
+                        <td>{{ feedback.feedback_text }}</td>
+                        <td>{{ feedback.submission_date }}</td>
+                        <td>
+                            <form method="POST" action="{% url 'customAdmin:feedbackDetail' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="feedback_id" value="{{ feedback.id }}">
+                                <button type="submit" name="star" class="star-button {% if feedback.starred %}starred{% endif %}" title="{% if feedback.starred %}Unstar{% else %}Star{% endif %}">
+                                </button>
+                                
+                                
+                            </form>                            
+                            <form method="POST" action="{% url 'customAdmin:feedbackDetail' %}" onsubmit="return confirm('Are you sure you want to disregard this feedback?');">
+                                {% csrf_token %}
+                                <input type="hidden" name="feedback_id" value="{{ feedback.id }}">
+                                <button type="submit" name="disregard">Disregard</button>
+                            </form>
+                        </td>
+                {% endif %}
+                {% endfor %}
+                {% for feedback in feedbacks %}
+                {% if not feedback.starred %}
+                    <tr class="feedbackRow">
+                        <td>{{ feedback.student.user.username }}</td>
+                        <td>{{ feedback.section }}</td>
+                        <td>{{ feedback.feedback_text }}</td>
+                        <td>{{ feedback.submission_date }}</td>
+                        <td>
+                            <form method="POST" action="{% url 'customAdmin:feedbackDetail' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="feedback_id" value="{{ feedback.id }}">
+                                <button type="submit" name="star" class="star-button {% if feedback.starred %}starred{% endif %}" title="{% if feedback.starred %}Unstar{% else %}Star{% endif %}">
+                                </button>
+                                
+                                
+                            </form>                            
+                            <form method="POST" action="{% url 'customAdmin:feedbackDetail' %}" onsubmit="return confirm('Are you sure you want to disregard this feedback?');">
+                                {% csrf_token %}
+                                <input type="hidden" name="feedback_id" value="{{ feedback.id }}">
+                                <button type="submit" name="disregard">Disregard</button>
+                            </form>
+                        </td>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No feedback available.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'GradeChange/GradeChangeTeacher.js' %}"></script>
+{% endblock %}

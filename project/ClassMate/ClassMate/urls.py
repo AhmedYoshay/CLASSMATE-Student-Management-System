@@ -32,4 +32,5 @@ urlpatterns = [
     path('profile/', include('user.urls')),
     path('customAdmin/', include('customAdmin.urls')),
     path('feedback/', include('feedback.urls')),
+    path('GradeChange/', include('GradeChange.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
