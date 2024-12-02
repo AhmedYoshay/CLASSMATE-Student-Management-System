@@ -103,9 +103,10 @@ Follow these steps to set up the project locally:
    ```
 
    Notes:
-   Replace <user>, <password>, <host>, <port>, and <database> in the DATABASE_URL with your actual database connection details.
-   The DATABASE_URL format is postgresql://<user>:<password>@<host>:<port>/<database>.
-   Ensure the .env file is added to .gitignore to prevent sensitive data from being tracked in version control.
+   Replace `<user>`, `<password>`, `<host>`, `<port>`, and `<database>` in the `DATABASE_URL` with your actual database connection details.
+   The `DATABASE_URL` format is `postgresql://<user>:<password>@<host>:<port>/<database>`.
+   Ensure the `.env` file is added to `.gitignore` to prevent sensitive data from being tracked in version control.
+
 
 5. **Apply Migrations**:
    ```bash
