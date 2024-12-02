@@ -257,17 +257,13 @@ def submit_grades(request, section_id):
                 if marks_entry and marks_entry.marks is not None:
                     total_obtained_marks += (marks_entry.marks / subcategory.total_marks) * subcategory.weightage
 
-            gpa = round((total_obtained_marks / total_weightage) * Decimal('4.0'), 2)
+            gpa = round((total_obtained_marks / total_weightage) * Decimal('4.0'), 2) 
 
             Grade.objects.update_or_create(
                 student=student,
                 course=section.course,
                 defaults={'gpa': gpa}
             )
-
-            # status to Completed
-            enrollment.status = 'Completed'
-            enrollment.save()
 
         section.finalized = True
         section.save()

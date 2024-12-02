@@ -88,7 +88,7 @@
                     {% csrf_token %}
                     <h2>Confirm Grade Submission</h2>
                     <label for="teacher-password">Password:</label>
-                    <input type="password" name="teacher_password" id="teacher-password" required>
+                    <input type="password" name="teacher_password" id="teacher-password" required autocomplete="current-password">
                     <button type="submit">Confirm</button>
                     <button type="button" onclick="toggleSubmitGradeModal()">Cancel</button>
                 </form>
@@ -101,11 +101,19 @@
         <script>
             function toggleSubmitGradeModal() {
                 const modal = document.getElementById("submit-grade-modal");
-                modal.classList.toggle("hidden");
+                modal.classList.toggle("show");
             }
         </script>
         
+        
         <style>
+            #submit-grade-modal {
+                display: none;
+            }
+            
+            #submit-grade-modal.show {
+                display: block; 
+            }
             .hidden { display: none; }
             #submit-grade-modal { background: #fff; padding: 20px; border: 1px solid #ccc; }
         </style>
