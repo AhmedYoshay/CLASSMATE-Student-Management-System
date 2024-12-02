@@ -39,7 +39,7 @@
                     <td>{{ course.recommended_semester }}</td>
                     <td>
                         <a href="?edit={{ course.id }}">Edit</a>  
-                        <a href="?delete=true&edit={{ course.id }}" onclick="return confirm('Are you sure you want to delete this course?');">Delete</a>
+                        <a href="?delete={{ course.id }}" onclick="return confirm('Are you sure you want to delete this course?');">Delete</a>
                     </td>
                 </tr>
             {% endfor %}

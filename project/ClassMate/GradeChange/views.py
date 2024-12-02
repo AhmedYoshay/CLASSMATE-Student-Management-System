@@ -28,7 +28,6 @@ def GradeChangeRequestView(request):
 
     return render(request, 'GradeChange/GradeChange.html', {'form': form})
 
-
 @teacher_required
 def GradeChangeDetail(request):
     GradeChanges = GradeChangeRequest.objects.select_related('student', 'section').all()

@@ -22,17 +22,14 @@ def insert_user(request):
         status = request.POST['status']
         salary = request.POST['salary']
         
-        # Create a new User
         user = CustomUser(username=username, email=email, password=make_password(password))
         user.save()
         
-        # Create a corresponding Student record
         # student = Student(user=user, program=program, status=status)
         # student.save()
-        teach = Teacher(user=user, program=program, status=status, salary=int(salary))  # Ensure salary is an integer
+        teach = Teacher(user=user, program=program, status=status, salary=int(salary))  
         teach.save()
         
-        # Redirect to a success page or user listing page
-        return redirect('index1')  # Make sure to create a view for 'user_list'
+        return redirect('index1')  
     
     return render(request, 'temp/insert_user.html')

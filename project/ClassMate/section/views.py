@@ -117,12 +117,10 @@ def withdraw_section(request, enrollment_id):
             messages.error(request, "Incorrect password. Please try again.")
             return redirect('withdraw_section', enrollment_id=enrollment_id)
 
-        # Delete the enrollment from the database
         enrollment.delete()
         messages.success(request, f"You have successfully withdrawn from {enrollment.section.course.course_name}")
         return redirect('enrolled_sections')
 
-    # Clear all existing messages to ensure no carry-over
     storage = get_messages(request)
     for _ in storage:
         pass

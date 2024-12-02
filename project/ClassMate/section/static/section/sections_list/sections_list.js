@@ -28,7 +28,6 @@ function closeConfirmationModal() {
     document.getElementById('confirmationModal').style.display = "none";
 }
 
-// Close the modal when clicking anywhere outside of it
 window.onclick = function(event) {
     if (event.target === document.getElementById('confirmationModal')) {
         closeConfirmationModal();

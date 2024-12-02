@@ -1,4 +1,3 @@
-/* General Styles */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -14,7 +13,6 @@ body {
     padding: 20px;
 }
 
-/* Header Styles */
 h1, h2 {
     color: #007bff;
     text-align: center;
@@ -30,7 +28,6 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* Table Styles */
 .transcript-table {
     width: 100%;
     border-collapse: collapse;
@@ -61,7 +58,6 @@ h2 {
     background-color: #e9ecef;
 }
 
-/* Print Button Styles */
 .print-button {
     display: block;
     margin-left: auto;
@@ -79,7 +75,6 @@ h2 {
     background-color: #0056b3;
 }
 
-/* Responsive styles for print button */
 @media screen and (max-width: 768px) {
     .print-button {
         padding: 8px 16px;
@@ -94,14 +89,12 @@ h2 {
     }
 }
 
-/* Hide print button when printing */
 @media print {
     .print-button {
         display: none;
     }
 }
 
-/* Responsive Styles */
 @media screen and (max-width: 768px) {
     h1 {
         font-size: 24px;
@@ -138,19 +131,15 @@ h2 {
     }
 }
 
-/* Print Styles */
 @media print {
-    /* Hide the entire body elements except the transcript section */
     body * {
         visibility: hidden;
     }
 
-    /* Show only the transcript section */
     .transcript-wrapper, .transcript-wrapper * {
         visibility: visible;
     }
 
-    /* Ensure that the transcript-wrapper takes full width */
     .transcript-wrapper {
         position: absolute;
         top: 0;
@@ -158,12 +147,10 @@ h2 {
         width: 100%;
     }
 
-    /* Hide the print button during printing */
     .print-button {
         display: none;
     }
 
-    /* Adjust table styles for printing */
     .transcript-table {
         border: 1px solid #000;
         box-shadow: none;
@@ -176,7 +163,6 @@ h2 {
         padding: 10px;
     }
 
-    /* Change background colors to suit printing */
     .transcript-table th {
         background-color: #fff;
         color: #000;
@@ -186,20 +172,15 @@ h2 {
         background-color: #f8f9fa;
     }
 
-    /* Suppress header/footer in the browser's print view */
     @page {
         margin: 0;
-        size: auto; /* Ensures the content fits to the page */
+        size: auto; 
     }
 
-    /* Hide unwanted elements like URL, time, etc. */
     @media print {
-        /* For some browsers, you can try this rule to hide page headers/footers */
         header, footer, .navbar, .footer, .header {
             display: none !important;
         }
-
-        /* For Firefox, use this rule to hide browser-specific elements like page numbers */
         .page-number, .page-total {
             display: none !important;
         }

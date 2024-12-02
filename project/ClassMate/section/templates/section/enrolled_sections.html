@@ -48,7 +48,6 @@
                     <td data-label="Teacher">{{ enrollment.section.teacher.user.first_name }} {{ enrollment.section.teacher.user.last_name }}</td>
                     <td data-label="Credits">{{ enrollment.section.course.credits }}</td>
                     <td data-label="Actions">
-                        <!-- Link to withdraw page -->
                         <a href="{% url 'withdraw_section' enrollment.id %}" class="enroll-btn">Withdraw</a>
                     </td>
                 </tr>

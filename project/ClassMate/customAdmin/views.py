@@ -32,10 +32,10 @@ def studentsDetail(request):
     students = Student.objects.select_related('user').all()
 
     if request.method == 'POST':
-        if 'edit' in request.GET:  # Edit mode
+        if 'edit' in request.GET:  
             student_id = request.GET.get('edit')
             student = get_object_or_404(Student, pk=student_id)
-            form = AddStudentForm(instance=student.user, data=request.POST)  # Form for editing
+            form = AddStudentForm(instance=student.user, data=request.POST)
 
             if form.is_valid():
                 first_name = form.cleaned_data['first_name']
@@ -105,7 +105,7 @@ def teachersDetail(request):
     teachers = Teacher.objects.select_related('user').all()
 
     if request.method == 'POST':
-        if 'edit' in request.GET:  # Edit mode
+        if 'edit' in request.GET: 
             teacher_id = request.GET.get('edit')
             teacher = get_object_or_404(Teacher, pk=teacher_id)
             form = AddTeacherForm(instance=teacher.user, data=request.POST)  
@@ -182,7 +182,7 @@ def coursesDetail(request):
     courses = Course.objects.all().order_by('recommended_semester', 'course_name')
 
     if request.method == 'POST':
-        if 'edit' in request.GET:  # Edit mode
+        if 'edit' in request.GET:
             course_id = request.GET.get('edit')
             course = get_object_or_404(Course, pk=course_id)
             form = AddCourseForm(instance=course, data=request.POST) 
@@ -220,6 +220,7 @@ def coursesDetail(request):
                 course.delete()
                 messages.success(request, 'Course deleted successfully.')
                 return redirect('customAdmin:coursesDetail')
+
 
     is_edit_mode = bool(request.GET.get('edit'))
     return render(request, 'customAdmin/course/course.html', {
@@ -335,7 +336,7 @@ def booksDetail(request):
     books = Book.objects.all()
 
     if request.method == 'POST':
-        if 'edit' in request.GET:  # Edit mode
+        if 'edit' in request.GET:
             book_id = request.GET.get('edit')
             book = get_object_or_404(Book, pk=book_id)
             form = AddBookForm(instance=book, data=request.POST)
@@ -345,7 +346,7 @@ def booksDetail(request):
                 messages.success(request, 'Book updated successfully!')
                 return redirect('customAdmin:booksDetail')
 
-        else:  # Add mode
+        else: 
             form = AddBookForm(request.POST)
             if form.is_valid():
                 form.save()
@@ -353,14 +354,14 @@ def booksDetail(request):
                 return redirect('customAdmin:booksDetail')
 
     elif request.method == 'GET':
-        book_id = request.GET.get('edit')  # Check for edit mode
+        book_id = request.GET.get('edit')
         if book_id:
             book = get_object_or_404(Book, pk=book_id)
             form = AddBookForm(instance=book)
         else:
             form = AddBookForm()
 
-        if request.GET.get('delete'):  # Handle delete action
+        if request.GET.get('delete'):
             book_id = request.GET.get('edit')
             if book_id:
                 book = get_object_or_404(Book, pk=book_id)

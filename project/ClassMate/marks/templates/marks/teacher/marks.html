@@ -48,7 +48,6 @@
                             {% endfor %}
                         </ul>
                         
-                        <!-- Add New Subcategory Form -->
                         <form method="POST" action="">
                             {% csrf_token %}
                             <input type="hidden" name="heading_id" value="{{ heading.id }}">
@@ -63,7 +62,6 @@
             {% endfor %}
         </div>
         <div>
-            <!-- Add New Heading Form -->
             <form method="POST">
                 {% csrf_token %}
                 <input type="text" name="heading_name" placeholder="Add new heading" required>

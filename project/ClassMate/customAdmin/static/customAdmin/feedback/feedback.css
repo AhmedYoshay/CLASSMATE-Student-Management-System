@@ -1,4 +1,3 @@
-/* General Styles */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -14,7 +13,6 @@ body {
     padding: 20px;
 }
 
-/* Header Styles */
 h1 {
     color: #007bff;
     font-size: 28px;
@@ -22,7 +20,6 @@ h1 {
     text-align: center;
 }
 
-/* Message Styles (Existing) */
 #messagesContainer {
     margin-bottom: 20px;
 }
@@ -57,7 +54,6 @@ h1 {
     color: #0c5460;
 }
 
-/* Search Input Styles */
 #searchInput {
     width: 100%;
     padding: 10px;
@@ -67,7 +63,6 @@ h1 {
     font-size: 16px;
 }
 
-/* Table Styles */
 .table-responsive {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -115,7 +110,6 @@ td {
     vertical-align: middle;
 }
 
-/* Button Styles */
 button {
     padding: 8px 12px;
     border: none;
@@ -223,7 +217,6 @@ button[name="disregard"]:hover {
     }
 }
 
-/* Improve search input */
 #searchInput {
     padding: 12px;
     border: 1px solid #ddd;
