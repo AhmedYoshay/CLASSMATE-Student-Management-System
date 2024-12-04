@@ -61,7 +61,7 @@ Follow these steps to set up the project locally:
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/Musaddiq123m/ClassMate.git
-   cd ClassMate/project/ClassMate
+   cd ClassMate/code/ClassMate
    ```
 
 2. **Set Up Virtual Environment**:

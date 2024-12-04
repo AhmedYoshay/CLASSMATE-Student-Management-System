@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_NFllgK7xEe-978ll_uFKAA" name="Teacher" metaclassReference="_NFoo0K7xEe-978ll_uFKAA">
+  <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NFuIYK7xEe-978ll_uFKAA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_NFuIYa7xEe-978ll_uFKAA" name="Teacher" nsURI="http:///schemas/Teacher/_NFsTMK7xEe-978ll_uFKAA/0" nsPrefix="Teacher">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NFv9kK7xEe-978ll_uFKAA" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_NFv9ka7xEe-978ll_uFKAA" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_NFv9kq7xEe-978ll_uFKAA" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_NFv9k67xEe-978ll_uFKAA" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_NFv9lK7xEe-978ll_uFKAA" key="Date" value="11/30/24, 1:00 PM"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_NFv9la7xEe-978ll_uFKAA" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_NFuIYq7xEe-978ll_uFKAA" name="Actor">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NFuIY67xEe-978ll_uFKAA" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_NFmMkK7xEe-978ll_uFKAA"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_NFuIZK7xEe-978ll_uFKAA" name="base_Lifeline" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Lifeline"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <elementImport xmi:type="uml:ElementImport" xmi:id="_NFoo0K7xEe-978ll_uFKAA">
+    <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Lifeline"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_NFmMkK7xEe-978ll_uFKAA" name="Actor">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_NFp28K7xEe-978ll_uFKAA" name="base_Lifeline" association="_NFpP4K7xEe-978ll_uFKAA">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Lifeline"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_NFpP4K7xEe-978ll_uFKAA" name="Lifeline_Actor" memberEnd="_NFpP4a7xEe-978ll_uFKAA _NFp28K7xEe-978ll_uFKAA">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_NFpP4a7xEe-978ll_uFKAA" name="extension_Actor" type="_NFmMkK7xEe-978ll_uFKAA" aggregation="composite" association="_NFpP4K7xEe-978ll_uFKAA"/>
+  </packagedElement>
+</uml:Profile>

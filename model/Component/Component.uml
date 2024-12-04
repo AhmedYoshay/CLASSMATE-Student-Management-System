@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_8UQ8wK9FEe-C7tjpXvJjAg" name="Component">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_8WDFcK9FEe-C7tjpXvJjAg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Component" xmi:id="_BN2h4K9GEe-C7tjpXvJjAg" name="FrontEndComponent">
+    <nestedClassifier xmi:type="uml:Interface" xmi:id="_i2U7EK9LEe-C7tjpXvJjAg"/>
+    <nestedClassifier xmi:type="uml:Interface" xmi:id="_pe-qEK9LEe-C7tjpXvJjAg" name=""/>
+    <packagedElement xmi:type="uml:Component" xmi:id="_ByQ2gK9GEe-C7tjpXvJjAg" name="UserInterface">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_qfsdAK9HEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+      <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_q1kpkK9LEe-C7tjpXvJjAg" client="_ByQ2gK9GEe-C7tjpXvJjAg" supplier="_pe-qEK9LEe-C7tjpXvJjAg" contract="_pe-qEK9LEe-C7tjpXvJjAg"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_jbpA4K9GEe-C7tjpXvJjAg" name="BackendComponent">
+    <packagedElement xmi:type="uml:Component" xmi:id="_oUDhUK9GEe-C7tjpXvJjAg" name="AuthenticationModule">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_ZEKoAK9MEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_cjBUgK9MEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_uH9ZoK9GEe-C7tjpXvJjAg" name="UserManagement">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_ZajHsK9MEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_cJuDsK9MEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_2roD0K9GEe-C7tjpXvJjAg" name="CourseManagementComponent">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_Zq534K9MEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_b1h8YK9MEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_7NWikK9GEe-C7tjpXvJjAg" name="AttendanceComponent">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_Z_6ekK9MEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_bdhsEK9MEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_CUar4K9HEe-C7tjpXvJjAg" name="GradingManagement">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_aVu9kK9MEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_dBcV4K9MEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_M0NrkK9HEe-C7tjpXvJjAg" name="LibraryManagementModule" visibility="public">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_alIEcK9MEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_dWicIK9MEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_ZOmIoK9HEe-C7tjpXvJjAg" name="FinancialService">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_a_1qgK9MEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_dsxx4K9MEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_aZyJYK9HEe-C7tjpXvJjAg" name="DatabaseComponent">
+    <packagedElement xmi:type="uml:Component" xmi:id="_dQNj8K9HEe-C7tjpXvJjAg" name="Database">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_mKSjAK9HEe-C7tjpXvJjAg" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedAttribute>
+      <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_5mx-oK9MEe-C7tjpXvJjAg" client="_dQNj8K9HEe-C7tjpXvJjAg" supplier="_4ufEsK9MEe-C7tjpXvJjAg" contract="_4ufEsK9MEe-C7tjpXvJjAg"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_TvDzQK9GEe-C7tjpXvJjAg" name="APIModule">
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_r2eCsK9HEe-C7tjpXvJjAg" aggregation="composite">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+    </ownedAttribute>
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_GCNnwK9REe-C7tjpXvJjAg" client="_TvDzQK9GEe-C7tjpXvJjAg" supplier="_EeCfQK9REe-C7tjpXvJjAg" contract="_EeCfQK9REe-C7tjpXvJjAg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_j87WwK9LEe-C7tjpXvJjAg" client="_r2eCsK9HEe-C7tjpXvJjAg" supplier="_i2U7EK9LEe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_4ufEsK9MEe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_y6ID8K9NEe-C7tjpXvJjAg" client="_ZEKoAK9MEe-C7tjpXvJjAg" supplier="_4ufEsK9MEe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_1zxKkK9NEe-C7tjpXvJjAg" client="_Zq534K9MEe-C7tjpXvJjAg" supplier="_4ufEsK9MEe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_4_xMgK9NEe-C7tjpXvJjAg" client="_ZajHsK9MEe-C7tjpXvJjAg" supplier="_4ufEsK9MEe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="__H8rsK9NEe-C7tjpXvJjAg" client="_Z_6ekK9MEe-C7tjpXvJjAg" supplier="_4ufEsK9MEe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="__vqzAK9NEe-C7tjpXvJjAg" client="_aVu9kK9MEe-C7tjpXvJjAg" supplier="_4ufEsK9MEe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_AQ-wUK9OEe-C7tjpXvJjAg" client="_alIEcK9MEe-C7tjpXvJjAg" supplier="_4ufEsK9MEe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_AzOhwK9OEe-C7tjpXvJjAg" client="_a_1qgK9MEe-C7tjpXvJjAg" supplier="_4ufEsK9MEe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_5EN8wK9PEe-C7tjpXvJjAg" client="_bdhsEK9MEe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_7r6XwK9PEe-C7tjpXvJjAg" client="_dBcV4K9MEe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="__-HMwK9PEe-C7tjpXvJjAg" client="_dWicIK9MEe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_BuqkYK9QEe-C7tjpXvJjAg" client="_dsxx4K9MEe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_EeCfQK9REe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_JlEDcK9REe-C7tjpXvJjAg" client="_dWicIK9MEe-C7tjpXvJjAg" supplier="_EeCfQK9REe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_KQJAwK9REe-C7tjpXvJjAg" client="_dsxx4K9MEe-C7tjpXvJjAg" supplier="_EeCfQK9REe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_LmS7YK9REe-C7tjpXvJjAg" client="_dBcV4K9MEe-C7tjpXvJjAg" supplier="_EeCfQK9REe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_MNQ0wK9REe-C7tjpXvJjAg" client="_bdhsEK9MEe-C7tjpXvJjAg" supplier="_EeCfQK9REe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_Mxm38K9REe-C7tjpXvJjAg" client="_b1h8YK9MEe-C7tjpXvJjAg" supplier="_EeCfQK9REe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_NZ3x0K9REe-C7tjpXvJjAg" client="_cJuDsK9MEe-C7tjpXvJjAg" supplier="_EeCfQK9REe-C7tjpXvJjAg"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_ODYB0K9REe-C7tjpXvJjAg" client="_cjBUgK9MEe-C7tjpXvJjAg" supplier="_EeCfQK9REe-C7tjpXvJjAg"/>
+</uml:Model>
