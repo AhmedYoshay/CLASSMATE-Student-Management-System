@@ -250,7 +250,6 @@ def submit_grades(request, section_id):
         for enrollment in enrollments:
             student = enrollment.student
             total_obtained_marks = 0
-
             subcategories = Subcategory.objects.filter(heading__section=section)
             for subcategory in subcategories:
                 marks_entry = MarksEntry.objects.filter(student=student, subcategory=subcategory).first()
@@ -264,6 +263,8 @@ def submit_grades(request, section_id):
                 course=section.course,
                 defaults={'gpa': gpa}
             )
+            enrollment.status = 'Completed'
+            enrollment.save()
 
         section.finalized = True
         section.save()

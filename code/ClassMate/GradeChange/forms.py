@@ -17,4 +17,5 @@ class GradeChangeForm(forms.ModelForm):
             enrollment__student=student,
             enrollment__status='Completed'
         ).distinct()
+        # print(enrolled_sections)
         self.fields['section'].queryset = enrolled_sections
