@@ -1,0 +1,40 @@
+{% extends 'classroom/c_base.html' %}
+
+{% block title %}Submissions for {{ assignment.title }}{% endblock %}
+
+{% block content %}
+<h1>Submissions for {{ assignment.title }}</h1>
+<p><strong>Classroom:</strong> {{ assignment.classroom.name }}</p>
+<p><strong>Deadline:</strong> {{ assignment.deadline }}</p>
+
+<section>
+    <h2>Submitted Assignments</h2>
+    {% if submissions %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Submitted At</th>
+                    <th>File</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for submission in submissions %}
+                <tr>
+                    <td>{{ submission.student.username }}</td>
+                    <td>{{ submission.submitted_at }}</td>
+                    <td>
+                        <a href="{{ submission.file.url }}" class="btn btn-primary btn-sm" download>
+                            Download Submission
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-muted">No submissions yet.</p>
+    {% endif %}
+</section>
+<a href="{% url 'classroom:classroom_detail' assignment.classroom.id %}" class="btn btn-secondary">Back to Classroom</a>
+{% endblock %}

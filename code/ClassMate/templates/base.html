@@ -28,10 +28,11 @@
                     {% if user.teacher%}
                         <li><a href="{% url 'teacher_marks' %}">Marks</a></li>
                         <li><a href="{% url 'GradeChange:GradeChangeDetail' %}">Grade Change Requests</a></li>
+                        <li><a href="{% url 'classroom:home' %}">Classroom</a></li>
                     {% elif user.student %}
-                        <li><a href="{% url 'show_marks' %}">Marks</a></li>    
-                    {% endif %}
-                    {% if user.student %}
+                        <li><a href="{% url 'show_marks' %}">Marks</a></li>
+                        {% endif %}
+                        {% if user.student %}
                         <li><a href="{% url 'course_list' %}">Courses</a></li>
                         <li><a href="{% url 'sections_list' %}">Course Registration</a></li>
                         <li><a href="{% url 'enrolled_sections' %}">Course withdraw</a></li>
@@ -39,6 +40,7 @@
                         <li><a href="{% url 'feedback:submit_feedback' %}">Give feedback</a></li>
                         <li><a href="{% url 'library_books' %}">Library</a></li>
                         <li><a href="{% url 'GradeChange:GradeChangeRequest' %}">Grade Change Request</a></li>
+                        <li><a href="{% url 'classroom:home' %}">Classroom</a></li>    
                         
                     {% endif %}
 
@@ -52,8 +54,6 @@
                         <li><a href="{% url 'customAdmin:booksDetail' %}">Books</a></li>
                         <li><a href="{% url 'customAdmin:issuedBooksDetail' %}">Library</a></li>
                         
-                    {% else %}
-                        <li><a href="https://classroom.google.com/">Classroom</a></li>
                     {% endif %}
                 </ul>
             </nav>

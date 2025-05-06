@@ -1,0 +1,82 @@
+{% extends 'classroom/c_base.html' %}
+
+{% block title %}{{ classroom.name }}{% endblock %}
+
+{% block content %}
+<h1 class="text-center mb-4">{{ classroom.name }}</h1>
+
+<section>
+    <h2>Posts</h2>
+    <div class="list-group mb-4">
+        {% for post in posts %}
+        <div class="list-group-item">
+            <p>{{ post.content }}</p>
+            <small class="text-muted">Posted by {{ post.author.username }} at {{ post.created_at }}</small>
+        </div>
+        {% endfor %}
+        {% if not posts %}
+        <p class="text-muted">No posts yet.</p>
+        {% endif %}
+    </div>
+    {% if user == classroom.teacher %}
+    <form method="POST" action="{% url 'classroom:create_post' classroom.id %}" class="mb-4">
+        {% csrf_token %}
+        <textarea name="content" class="form-control mb-2" placeholder="Write a post..." required></textarea>
+        <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+    {% endif %}
+</section>
+
+<section>
+    <h2>Assignments</h2>
+    <div class="row g-3">
+        {% for assignment in assignments %}
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ assignment.title }}</h5>
+                    <p class="card-text">{{ assignment.description }}</p>
+                    <p class="card-text"><small class="text-muted">Deadline: {{ assignment.deadline }}</small></p>
+                    {% if user == classroom.teacher %}
+                        <a href="{% url 'classroom:view_submissions' assignment.id %}" class="btn btn-primary w-100">View Submissions</a>
+                    {% else %}
+                        {% if assignment.id in submitted_assignments %}
+                        <button class ="btn btn-success w-100" disabled>Already Submitted</button>
+                        {% elif assignment.deadline < current_time %}
+                        <button class="btn btn-danger w-100" disabled>Deadline Over</button>
+
+                        {% else %}
+                        <form method="POST" action="{% url 'classroom:submit_assignment' classroom.id assignment.id %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="file" name="file" class="form-control mb-2" required>
+                            <button type="submit" class="btn btn-success w-100">Submit</button>
+                        </form>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% if not assignments %}
+        <p class="text-muted">No assignments yet.</p>
+        {% endif %}
+    </div>
+    {% if user == classroom.teacher %}
+    <form method="POST" action="{% url 'classroom:create_assignment' classroom.id %}" class="row g-2 mt-4">
+        {% csrf_token %}
+        <div class="col-md-4">
+            <input type="text" name="title" class="form-control" placeholder="Assignment Title" required>
+        </div>
+        <div class="col-md-6">
+            <textarea name="description" class="form-control" placeholder="Assignment Description" required></textarea>
+        </div>
+        <div class="col-md-4">
+            <input type="datetime-local" name="deadline" class="form-control" placeholder="Assignment Deadline" required>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Create</button>
+        </div>
+    </form>
+    {% endif %}
+</section>
+{% endblock %}

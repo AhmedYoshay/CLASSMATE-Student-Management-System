@@ -33,4 +33,7 @@ urlpatterns = [
     path('customAdmin/', include('customAdmin.urls')),
     path('feedback/', include('feedback.urls')),
     path('GradeChange/', include('GradeChange.urls')),
+    path('classroom/', include(('classroom.urls','classroom'), namespace='classroom')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

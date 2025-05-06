@@ -1,0 +1,34 @@
+{% extends 'classroom/c_base.html' %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="page-heading">🎓 Student Dashboard</h1>
+
+<section>
+    <h2>📘 Your Classrooms</h2>
+    {% if classrooms %}
+    <ul>
+        {% for classroom in classrooms %}
+            <li>
+                <a href="{% url 'classroom:classroom_detail' classroom.id %}" class="classroom-link">
+                    {{ classroom.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>You haven't joined any classrooms yet.</p>
+    {% endif %}
+</section>
+
+<section>
+    <h2>Join a Classroom</h2>
+    <form method="POST" action="{% url 'classroom:join_classroom' %}" class="colorful-form" data-ajax="true">
+        {% csrf_token %}
+        <label for="code">Classroom Code:</label>
+        <input type="text" id="code" name="code" placeholder="e.g., ABC123" required>
+        <button type="submit">Join Classroom</button>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'classroom/c_base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1 class="text-center mb-4">Welcome, {{ user.first_name }}</h1>
+{% if user.teacher %}
+<h1 class="text-center mb-4">👨‍🏫Teacher Dashboard</h1>
+{% elif user.student %}
+<h1 class="text-center mb-4">🎓Student Dashboard</h1>
+{% endif %}
+
+<section>
+    <div class="row g-3">
+        <h2>📚 Your Classrooms</h2>
+        {% for classroom in classrooms %}
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ classroom.name }}</h5>
+                    {% if user.teacher %}
+                        <p class="card-text"><strong>Code:</strong> {{ classroom.code }}</p>
+                    {% endif %}
+                    <a href="{% url 'classroom:classroom_detail' classroom.id %}" class="btn btn-primary w-100">Open Classroom</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% if not classrooms %}
+        <div class="col-12 text-center">
+            <p class="text-muted">You currently have no classrooms.</p>
+            {% if user.teacher %}
+                <p>Create a classroom to get started!</p>
+            {% else %}
+                <p>Join a classroom using a code to get started!</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% if user.student and due_assignments %}
+<section>
+    <h2>⚠️Due Assignments</h2>
+    <div class="list-group">
+        {% for assignment in due_assignments %}
+        <div class="list-group-item">
+            <h5>{{ assignment.title }}</h5>
+            <p><strong>Classroom:</strong> {{ assignment.classroom.name }}</p>
+            <p><strong>Deadline:</strong> {{ assignment.deadline }}</p>
+            <a href="{% url 'classroom:classroom_detail' assignment.classroom.id %}" class="btn btn-success btn-sm">Go to Classroom</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+<hr class="my-4">
+
+{% if user.teacher %}
+<section>
+    <h2>Create a New Classroom</h2>
+    <form method="POST" action="{% url 'classroom:create_classroom' %}" class="row g-2">
+        {% csrf_token %}
+        <div class="col-md-6">
+            <input type="text" name="name" class="form-control" placeholder="Classroom Name" required>
+        </div>
+        <div class="col-md-4">
+            <input type="text" name="code" class="form-control" placeholder="Classroom Code" required>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-success w-100">Create</button>
+        </div>
+    </form>
+</section>
+{% else %}
+<section>
+    <h2>Join a Classroom</h2>
+    <form method="POST" action="{% url 'classroom:join_classroom' %}" class="row g-2">
+        {% csrf_token %}
+        <div class="col-md-10">
+            <input type="text" name="code" class="form-control" placeholder="Classroom Code" required>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Join</button>
+        </div>
+    </form>
+</section>
+{% endif %}
+{% endblock %}
